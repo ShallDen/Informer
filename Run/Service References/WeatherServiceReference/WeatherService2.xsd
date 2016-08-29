@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/OpenWeatherMap" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/OpenWeatherMap" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="MetricSystem">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Internal" />
+      <xs:enumeration value="Metric" />
+      <xs:enumeration value="Imperial" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MetricSystem" nillable="true" type="tns:MetricSystem" />
+  <xs:simpleType name="OpenWeatherMapLanguage">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EN" />
+      <xs:enumeration value="RU" />
+      <xs:enumeration value="IT" />
+      <xs:enumeration value="SP" />
+      <xs:enumeration value="UA" />
+      <xs:enumeration value="DE" />
+      <xs:enumeration value="PT" />
+      <xs:enumeration value="RO" />
+      <xs:enumeration value="PL" />
+      <xs:enumeration value="FI" />
+      <xs:enumeration value="NL" />
+      <xs:enumeration value="FR" />
+      <xs:enumeration value="BG" />
+      <xs:enumeration value="SE" />
+      <xs:enumeration value="ZH_TW" />
+      <xs:enumeration value="ZH_CN" />
+      <xs:enumeration value="TR" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="OpenWeatherMapLanguage" nillable="true" type="tns:OpenWeatherMapLanguage" />
+</xs:schema>

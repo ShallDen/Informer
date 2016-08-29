@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherService", "WeatherService\WeatherService.csproj", "{D21578DD-57B6-42AE-8937-14508F714C01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Run", "Run\Run.csproj", "{F1DC1725-0A77-401A-BBA0-A3F664397A28}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CD28A84E-9FFC-49A3-AB97-37FE667EAC93} = {CD28A84E-9FFC-49A3-AB97-37FE667EAC93}
+		{D21578DD-57B6-42AE-8937-14508F714C01} = {D21578DD-57B6-42AE-8937-14508F714C01}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeatherMap.Net45", "OpenWeatherMap.Net45\OpenWeatherMap.Net45.csproj", "{2B0E4BAD-7158-4528-AD34-59CC2C109EE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "Informer.DataAccess\DataAccess.csproj", "{C7823350-985E-4542-BEA6-F63E0B67E151}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageService", "StorageService\StorageService.csproj", "{CD28A84E-9FFC-49A3-AB97-37FE667EAC93}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D21578DD-57B6-42AE-8937-14508F714C01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D21578DD-57B6-42AE-8937-14508F714C01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D21578DD-57B6-42AE-8937-14508F714C01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D21578DD-57B6-42AE-8937-14508F714C01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1DC1725-0A77-401A-BBA0-A3F664397A28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1DC1725-0A77-401A-BBA0-A3F664397A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1DC1725-0A77-401A-BBA0-A3F664397A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1DC1725-0A77-401A-BBA0-A3F664397A28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B0E4BAD-7158-4528-AD34-59CC2C109EE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B0E4BAD-7158-4528-AD34-59CC2C109EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B0E4BAD-7158-4528-AD34-59CC2C109EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B0E4BAD-7158-4528-AD34-59CC2C109EE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7823350-985E-4542-BEA6-F63E0B67E151}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7823350-985E-4542-BEA6-F63E0B67E151}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7823350-985E-4542-BEA6-F63E0B67E151}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7823350-985E-4542-BEA6-F63E0B67E151}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD28A84E-9FFC-49A3-AB97-37FE667EAC93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD28A84E-9FFC-49A3-AB97-37FE667EAC93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD28A84E-9FFC-49A3-AB97-37FE667EAC93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD28A84E-9FFC-49A3-AB97-37FE667EAC93}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
