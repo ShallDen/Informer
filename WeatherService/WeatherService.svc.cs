@@ -16,27 +16,39 @@ namespace WeatherService
 {
     public class WeatherService : IWeatherService
     {
-        private readonly OpenWeatherMapClient mWeatherClient;
-        private readonly string mAppId;
-        private readonly Timer mWeatherSeekTimer;
+        private static WeatherService instance;
+        private static OpenWeatherMapClient mWeatherClient;
 
-        private int mUserCityId;
-        private MetricSystem mUserMetricSystem;
-        private OpenWeatherMapLanguage mUserLanguage;
+        private static int mUserCityId;
+        private static MetricSystem mUserMetricSystem;
+        private static OpenWeatherMapLanguage mUserLanguage;
 
-        public WeatherService()
+        private static List<int> seekList = new List<int>();
+
+        public static WeatherService Instance
         {
-            mAppId = ConfigurationManager.AppSettings["ApplicationId"];
+            get { return instance ?? (instance = new WeatherService()); }
+        }
+
+        static WeatherService()
+        {
+            var mAppId = ConfigurationManager.AppSettings["ApplicationId"];
             mWeatherClient = new OpenWeatherMapClient(mAppId);
 
-            mWeatherSeekTimer = new Timer();
-            mWeatherSeekTimer.Interval = Double.Parse(ConfigurationManager.AppSettings["WeatherUpdateFromWebInterval"], System.Globalization.CultureInfo.InvariantCulture);
+            Timer mWeatherSeekTimer = new Timer();
+            //mWeatherSeekTimer.Interval = Double.Parse(ConfigurationManager.AppSettings["WeatherUpdateFromWebInterval"], System.Globalization.CultureInfo.InvariantCulture);
+            mWeatherSeekTimer.Interval = 10000;
             mWeatherSeekTimer.Elapsed += mWeatherSeekTimer_Elapsed;
 
             mUserCityId = Int32.Parse(ConfigurationManager.AppSettings["DefaultCityId"], System.Globalization.CultureInfo.InvariantCulture);
             mUserMetricSystem = MetricSystem.Metric;
             mUserLanguage = OpenWeatherMapLanguage.EN;
+
+          //  seekList.Add(mUserCityId);
+            mWeatherSeekTimer.Start();
         }
+
+        private WeatherService() { }
 
         public void StartSeek(int cityId, MetricSystem metricSystem, OpenWeatherMapLanguage language)
         {
@@ -44,22 +56,42 @@ namespace WeatherService
             mUserMetricSystem = metricSystem;
             mUserLanguage = language;
 
-            SeekWeather();
-            mWeatherSeekTimer.Start();
+            if (!IsSeekListContainsCity(cityId))
+            {
+                lock (seekList)
+                {
+                    seekList.Add(cityId);
+                }
+            }
+
+            //TO COMMENT THIS
+           // SeekWeather();
+              
+        }
+        private bool IsSeekListContainsCity(int cityId)
+        {
+            return seekList.Where(k => k == cityId).Any();
         }
 
-        private void mWeatherSeekTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private static void mWeatherSeekTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             SeekWeather();
         }
 
-        private void SeekWeather()
+        private static void SeekWeather()
         {
-            var currentWeather = mWeatherClient.CurrentWeather.GetByCityId(mUserCityId, mUserMetricSystem, mUserLanguage);
-            WriteWeatherInfoToDatabase(currentWeather);
+            lock (seekList)
+            {
+                foreach (var city in seekList)
+                {
+                    var currentWeather = mWeatherClient.CurrentWeather.GetByCityId(city, mUserMetricSystem, mUserLanguage);
+                    WriteWeatherInfoToDatabase(currentWeather);
+                }
+            }
+           
         }
 
-        private void WriteWeatherInfoToDatabase(Task<CurrentWeatherResponse> currentWeather)
+        private static void WriteWeatherInfoToDatabase(Task<CurrentWeatherResponse> currentWeather)
         {
             using (InformerContext context = new InformerContext())
             {
@@ -83,6 +115,6 @@ namespace WeatherService
 
 
 //var currentWeather = client.CurrentWeather.GetByCityId(1151254, MetricSystem.Metric, OpenWeatherMapLanguage.EN); //Phuket
-//var currentWeather = client.CurrentWeather.GetByCityId(532715, MetricSystem.Metric, OpenWeatherMapLanguage.EN); //Lyskovo
-// var currentWeather = client.CurrentWeather.GetByCityId(5128581, MetricSystem.Metric, OpenWeatherMapLanguage.EN); //NY
+//var currentWeather = client.CurrentWeather.GetByCityId(532715, MetricSystem.Metric, OpenWeatherMapLanguage.EN);  //Lyskovo
+//var currentWeather = client.CurrentWeather.GetByCityId(5128581, MetricSystem.Metric, OpenWeatherMapLanguage.EN); //NY
 //var currentWeather = client.CurrentWeather.GetByCityId(6058560, MetricSystem.Metric, OpenWeatherMapLanguage.EN); //London
