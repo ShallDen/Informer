@@ -196,6 +196,7 @@
     <Compile Include="..\OpenWeatherMap\OpenWeatherMapClient.cs">
       <Link>OpenWeatherMapClient.cs</Link>
     </Compile>
+    <Compile Include="Models\CurrentWeatherRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

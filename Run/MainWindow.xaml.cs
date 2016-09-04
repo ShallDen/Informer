@@ -95,16 +95,17 @@ namespace Run
         private void btnGetNewWeather_Click(object sender, RoutedEventArgs e)
         {
             WeatherServiceClient client = new WeatherServiceClient();
-            var userCity = 520555;
+            CurrentWeatherRequest currentWeatherRequest = new CurrentWeatherRequest();
+            currentWeatherRequest.CityId = 520555;
             if (!string.IsNullOrEmpty(txtCitiId.Text))
-                userCity = int.Parse(txtCitiId.Text);
+                currentWeatherRequest.CityId = int.Parse(txtCitiId.Text);
             // NN 520555
             // Phuket 1151254;
             // Moscow 5202009
 
-            var metricSystem = MetricSystem.Metric;
-            var language = OpenWeatherMapLanguage.EN;
-            client.StartSeek(userCity, metricSystem, language);
+            currentWeatherRequest.UserMetricSystem = MetricSystem.Metric;
+            currentWeatherRequest.UserLanguage = OpenWeatherMapLanguage.EN;
+            client.StartSeek(currentWeatherRequest);
         }
 
 

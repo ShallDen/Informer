@@ -9,17 +9,96 @@
 //------------------------------------------------------------------------------
 
 namespace Run.WeatherServiceReference {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CurrentWeatherRequest", Namespace="http://schemas.datacontract.org/2004/07/OpenWeatherMap")]
+    [System.SerializableAttribute()]
+    public partial class CurrentWeatherRequest : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CityIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private OpenWeatherMap.OpenWeatherMapLanguage UserLanguageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private OpenWeatherMap.MetricSystem UserMetricSystemField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CityId {
+            get {
+                return this.CityIdField;
+            }
+            set {
+                if ((this.CityIdField.Equals(value) != true)) {
+                    this.CityIdField = value;
+                    this.RaisePropertyChanged("CityId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public OpenWeatherMap.OpenWeatherMapLanguage UserLanguage {
+            get {
+                return this.UserLanguageField;
+            }
+            set {
+                if ((this.UserLanguageField.Equals(value) != true)) {
+                    this.UserLanguageField = value;
+                    this.RaisePropertyChanged("UserLanguage");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public OpenWeatherMap.MetricSystem UserMetricSystem {
+            get {
+                return this.UserMetricSystemField;
+            }
+            set {
+                if ((this.UserMetricSystemField.Equals(value) != true)) {
+                    this.UserMetricSystemField = value;
+                    this.RaisePropertyChanged("UserMetricSystem");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WeatherServiceReference.IWeatherService")]
     public interface IWeatherService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWeatherService/StartSeek", ReplyAction="http://tempuri.org/IWeatherService/StartSeekResponse")]
-        void StartSeek(int cityId, OpenWeatherMap.MetricSystem metricSystem, OpenWeatherMap.OpenWeatherMapLanguage language);
+        void StartSeek(Run.WeatherServiceReference.CurrentWeatherRequest currentWeatherRequest);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWeatherService/StartSeek", ReplyAction="http://tempuri.org/IWeatherService/StartSeekResponse")]
-        System.Threading.Tasks.Task StartSeekAsync(int cityId, OpenWeatherMap.MetricSystem metricSystem, OpenWeatherMap.OpenWeatherMapLanguage language);
+        System.Threading.Tasks.Task StartSeekAsync(Run.WeatherServiceReference.CurrentWeatherRequest currentWeatherRequest);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -49,12 +128,12 @@ namespace Run.WeatherServiceReference {
                 base(binding, remoteAddress) {
         }
         
-        public void StartSeek(int cityId, OpenWeatherMap.MetricSystem metricSystem, OpenWeatherMap.OpenWeatherMapLanguage language) {
-            base.Channel.StartSeek(cityId, metricSystem, language);
+        public void StartSeek(Run.WeatherServiceReference.CurrentWeatherRequest currentWeatherRequest) {
+            base.Channel.StartSeek(currentWeatherRequest);
         }
         
-        public System.Threading.Tasks.Task StartSeekAsync(int cityId, OpenWeatherMap.MetricSystem metricSystem, OpenWeatherMap.OpenWeatherMapLanguage language) {
-            return base.Channel.StartSeekAsync(cityId, metricSystem, language);
+        public System.Threading.Tasks.Task StartSeekAsync(Run.WeatherServiceReference.CurrentWeatherRequest currentWeatherRequest) {
+            return base.Channel.StartSeekAsync(currentWeatherRequest);
         }
     }
 }

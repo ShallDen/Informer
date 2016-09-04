@@ -16,7 +16,7 @@ namespace WeatherService
     {
         // TODO: Добавьте здесь операции служб
         [OperationContract]
-        void StartSeek(int cityId, MetricSystem metricSystem, OpenWeatherMapLanguage language);
+        void StartSeek(CurrentWeatherRequest currentWeatherRequest);
 
         //[OperationContract]
         //Task<CurrentWeatherResponse> GetWeatherFromWeb(int cityId, MetricSystem metricSystem, OpenWeatherMapLanguage language);

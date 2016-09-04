@@ -16,22 +16,15 @@ namespace WeatherService
 {
     public class WeatherService : IWeatherService
     {
-        private static WeatherService instance;
+        private static List<CurrentWeatherRequest> mSeekList;
         private static OpenWeatherMapClient mWeatherClient;
 
-        private static int mUserCityId;
-        private static MetricSystem mUserMetricSystem;
-        private static OpenWeatherMapLanguage mUserLanguage;
-
-        private static List<int> seekList = new List<int>();
-
-        public static WeatherService Instance
-        {
-            get { return instance ?? (instance = new WeatherService()); }
-        }
+        private WeatherService() { }
 
         static WeatherService()
         {
+            mSeekList = new List<CurrentWeatherRequest>();
+
             var mAppId = ConfigurationManager.AppSettings["ApplicationId"];
             mWeatherClient = new OpenWeatherMapClient(mAppId);
 
@@ -39,38 +32,25 @@ namespace WeatherService
             //mWeatherSeekTimer.Interval = Double.Parse(ConfigurationManager.AppSettings["WeatherUpdateFromWebInterval"], System.Globalization.CultureInfo.InvariantCulture);
             mWeatherSeekTimer.Interval = 10000;
             mWeatherSeekTimer.Elapsed += mWeatherSeekTimer_Elapsed;
-
-            mUserCityId = Int32.Parse(ConfigurationManager.AppSettings["DefaultCityId"], System.Globalization.CultureInfo.InvariantCulture);
-            mUserMetricSystem = MetricSystem.Metric;
-            mUserLanguage = OpenWeatherMapLanguage.EN;
-
-          //  seekList.Add(mUserCityId);
             mWeatherSeekTimer.Start();
         }
 
-        private WeatherService() { }
-
-        public void StartSeek(int cityId, MetricSystem metricSystem, OpenWeatherMapLanguage language)
+        public void StartSeek(CurrentWeatherRequest currentWeatherRequest)
         {
-            mUserCityId = cityId;
-            mUserMetricSystem = metricSystem;
-            mUserLanguage = language;
-
-            if (!IsSeekListContainsCity(cityId))
+            if (!IsSeekListContainsCity(currentWeatherRequest))
             {
-                lock (seekList)
+                lock (mSeekList)
                 {
-                    seekList.Add(cityId);
+                    mSeekList.Add(currentWeatherRequest);
                 }
             }
-
             //TO COMMENT THIS
            // SeekWeather();
-              
         }
-        private bool IsSeekListContainsCity(int cityId)
+
+        private bool IsSeekListContainsCity(CurrentWeatherRequest currentWeatherRequest)
         {
-            return seekList.Where(k => k == cityId).Any();
+            return mSeekList.Where(k => k.CityId == currentWeatherRequest.CityId).Any();
         }
 
         private static void mWeatherSeekTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -80,15 +60,14 @@ namespace WeatherService
 
         private static void SeekWeather()
         {
-            lock (seekList)
+            lock (mSeekList)
             {
-                foreach (var city in seekList)
+                foreach (var item in mSeekList)
                 {
-                    var currentWeather = mWeatherClient.CurrentWeather.GetByCityId(city, mUserMetricSystem, mUserLanguage);
+                    var currentWeather = mWeatherClient.CurrentWeather.GetByCityId(item.CityId, item.UserMetricSystem, item.UserLanguage);
                     WriteWeatherInfoToDatabase(currentWeather);
                 }
             }
-           
         }
 
         private static void WriteWeatherInfoToDatabase(Task<CurrentWeatherResponse> currentWeather)

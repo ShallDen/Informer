@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="dfbc2f5c-6a57-4bea-92f6-5a4e65396234" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/StorageService/StorageService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="StorageService3.xsd" MetadataType="Schema" ID="58095a9a-065b-4e90-b9f1-831f0b53a137" SourceId="1" SourceUrl="http://shaiiden/StorageService/StorageService.svc?xsd=xsd0" />
+    <MetadataFile FileName="StorageService1.disco" MetadataType="Disco" ID="78efc9cc-57d6-4129-8351-0e8f9be04ed7" SourceId="1" SourceUrl="http://shaiiden/StorageService/StorageService.svc?disco" />
+    <MetadataFile FileName="StorageService1.wsdl" MetadataType="Wsdl" ID="0356695d-be4b-4226-bc85-2393c65be174" SourceId="1" SourceUrl="http://shaiiden/StorageService/StorageService.svc?wsdl" />
+    <MetadataFile FileName="StorageService31.xsd" MetadataType="Schema" ID="0e43e981-d5dd-4b01-9764-5dbbc7558434" SourceId="1" SourceUrl="http://shaiiden/StorageService/StorageService.svc?xsd=xsd2" />
+    <MetadataFile FileName="StorageService32.xsd" MetadataType="Schema" ID="4eebc5e7-da82-44e7-b0b4-2bf3b7767cec" SourceId="1" SourceUrl="http://shaiiden/StorageService/StorageService.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
