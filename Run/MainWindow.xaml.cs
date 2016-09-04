@@ -22,6 +22,7 @@ using Run.WeatherServiceReference;
 using Run.StorageServiceReference;
 using System.Threading;
 using Timer = System.Timers.Timer;
+using Informer.Utils;
 
 namespace Run
 {
@@ -48,6 +49,8 @@ namespace Run
             storageClient = new StorageServiceClient();
             Thread thread = new Thread(RequestWeather);
             thread.Start();
+
+         //   Test();
         }
 
         private void btnGetWeather_Click(object sender, RoutedEventArgs e)
@@ -65,6 +68,7 @@ namespace Run
             lock (lockObj)
             {
                 string currentCityName = string.Empty;
+                int currentCityId = 0;
 
                 Dispatcher.Invoke(new Action(() =>
                 {
@@ -72,9 +76,21 @@ namespace Run
                         currentCityName = "Nizhniy Novgorod";
                     else
                         currentCityName = txtCityInput.Text;
+                    if (!string.IsNullOrEmpty(txtCitiId.Text))
+                        currentCityId = int.Parse(txtCitiId.Text);
                 }));
 
                 //var temp = storageClient.GetSum(1, 3);
+
+                if (currentCityId!=0)
+                {
+                    string filePath = "../../../OpenWeatherMap.Net45/Models/cityList.json";
+                    var cityListModel = SerializationHelper.DeserializeFromFile(filePath);
+
+                    var city = cityListModel.cityList.Where(c => c._id == currentCityId).SingleOrDefault();
+                    currentCityName = city.name;
+                }
+                
                 var weatherItem = storageClient.GetWeatherFromDbByCity(currentCityName);
 
                 Dispatcher.Invoke(new Action(() =>
@@ -100,8 +116,8 @@ namespace Run
             if (!string.IsNullOrEmpty(txtCitiId.Text))
                 currentWeatherRequest.CityId = int.Parse(txtCitiId.Text);
             // NN 520555
-            // Phuket 1151254;
-            // Moscow 5202009
+            // Phuket 1151254
+            // Moscow 524901
 
             currentWeatherRequest.UserMetricSystem = MetricSystem.Metric;
             currentWeatherRequest.UserLanguage = OpenWeatherMapLanguage.EN;
@@ -120,6 +136,10 @@ namespace Run
 
         public void Test()
         {
+            string filePath = "../../../OpenWeatherMap.Net45/Models/cityList.json";
+            var cityListModel = SerializationHelper.DeserializeFromFile(filePath);
+
+            var city = cityListModel.cityList.Where(c => c.name == "Moscow").ToList();
             //SERVER SIDE METHOD
             //
             //WeatherServiceClient client = new WeatherServiceClient();
@@ -179,7 +199,5 @@ namespace Run
             //// Сохранить изменения в БД
             //context.SaveChanges();
         }
-
-
     }
 }

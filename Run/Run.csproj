@@ -42,7 +42,6 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="OpenWeatherMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -147,6 +146,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Informer.Utils\Utils.csproj">
+      <Project>{ade21a0c-4795-4e38-8cd6-4f9612c6c3a1}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OpenWeatherMap.Net45\OpenWeatherMap.Net45.csproj">
       <Project>{2b0e4bad-7158-4528-ad34-59cc2c109ee0}</Project>
       <Name>OpenWeatherMap.Net45</Name>

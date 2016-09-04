@@ -11,6 +11,7 @@ using System.Timers;
 using System.Configuration;
 using OpenWeatherMap;
 using Informer.DataAccess;
+using Informer.Utils;
 
 namespace WeatherService
 {
@@ -29,8 +30,8 @@ namespace WeatherService
             mWeatherClient = new OpenWeatherMapClient(mAppId);
 
             Timer mWeatherSeekTimer = new Timer();
-            //mWeatherSeekTimer.Interval = Double.Parse(ConfigurationManager.AppSettings["WeatherUpdateFromWebInterval"], System.Globalization.CultureInfo.InvariantCulture);
-            mWeatherSeekTimer.Interval = 10000;
+            mWeatherSeekTimer.Interval = Double.Parse(ConfigurationManager.AppSettings["WeatherUpdateFromWebInterval"], System.Globalization.CultureInfo.InvariantCulture);
+           // mWeatherSeekTimer.Interval = 10000;
             mWeatherSeekTimer.Elapsed += mWeatherSeekTimer_Elapsed;
             mWeatherSeekTimer.Start();
         }
@@ -72,6 +73,8 @@ namespace WeatherService
 
         private static void WriteWeatherInfoToDatabase(Task<CurrentWeatherResponse> currentWeather)
         {
+            //SerializationHelper.Serialize(@"C:\Users\ShallDen\Desktop\WeatherObject.xml", currentWeather.Result);
+            //var weather = (SerializationHelper.Deserialize(@"C:\Users\ShallDen\Desktop\WeatherObject.xml", typeof(CurrentWeatherResponse)) as CurrentWeatherResponse);
             using (InformerContext context = new InformerContext())
             {
                 context.WeatherItems.Add(currentWeather.Result);

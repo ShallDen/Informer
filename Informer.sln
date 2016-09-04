@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherService", "WeatherService\WeatherService.csproj", "{D21578DD-57B6-42AE-8937-14508F714C01}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Run", "Run\Run.csproj", "{F1DC1725-0A77-401A-BBA0-A3F664397A28}"
@@ -14,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "Informer.DataAccess\DataAccess.csproj", "{C7823350-985E-4542-BEA6-F63E0B67E151}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageService", "StorageService\StorageService.csproj", "{CD28A84E-9FFC-49A3-AB97-37FE667EAC93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Informer.Utils\Utils.csproj", "{ADE21A0C-4795-4E38-8CD6-4F9612C6C3A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +45,10 @@ Global
 		{CD28A84E-9FFC-49A3-AB97-37FE667EAC93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD28A84E-9FFC-49A3-AB97-37FE667EAC93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD28A84E-9FFC-49A3-AB97-37FE667EAC93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADE21A0C-4795-4E38-8CD6-4F9612C6C3A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADE21A0C-4795-4E38-8CD6-4F9612C6C3A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADE21A0C-4795-4E38-8CD6-4F9612C6C3A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADE21A0C-4795-4E38-8CD6-4F9612C6C3A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
