@@ -196,6 +196,7 @@
     <Compile Include="..\OpenWeatherMap\OpenWeatherMapClient.cs">
       <Link>OpenWeatherMapClient.cs</Link>
     </Compile>
+    <Compile Include="Helpers\CityHelper.cs" />
     <Compile Include="Models\CityListModel.cs" />
     <Compile Include="Models\CurrentWeatherRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -205,8 +206,14 @@
       <Link>OpenWeatherMap.snk</Link>
     </None>
     <None Include="App.config" />
-    <None Include="Models\cityList.json" />
+    <None Include="Models\CityList.json" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Informer.Utils\Utils.csproj">
+      <Project>{ade21a0c-4795-4e38-8cd6-4f9612c6c3a1}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

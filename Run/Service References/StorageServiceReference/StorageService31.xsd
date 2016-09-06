@@ -132,4 +132,33 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="CurrentWeatherResponse" nillable="true" type="tns:CurrentWeatherResponse" />
+  <xs:simpleType name="CitySearchType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ByCityName" />
+      <xs:enumeration value="ByCityId" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="CitySearchType" nillable="true" type="tns:CitySearchType" />
+  <xs:complexType name="ArrayOfCityModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CityModel" nillable="true" type="tns:CityModel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCityModel" nillable="true" type="tns:ArrayOfCityModel" />
+  <xs:complexType name="CityModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="_id" type="xs:int" />
+      <xs:element minOccurs="0" name="coord" nillable="true" type="tns:Coord" />
+      <xs:element minOccurs="0" name="country" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CityModel" nillable="true" type="tns:CityModel" />
+  <xs:complexType name="Coord">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="lat" type="xs:double" />
+      <xs:element minOccurs="0" name="lon" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Coord" nillable="true" type="tns:Coord" />
 </xs:schema>

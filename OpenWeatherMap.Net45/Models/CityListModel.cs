@@ -22,6 +22,7 @@ namespace OpenWeatherMap
 
     public class CityListModel
     {
+        public CityListModel() { }
         public List<CityModel> cityList { get; set; }
     }
 }

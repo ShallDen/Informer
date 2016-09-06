@@ -33,6 +33,7 @@ namespace Run
     {
         private readonly Timer mWeatherSeekTimer;
         private readonly StorageServiceClient storageClient;
+        private readonly WeatherServiceClient weatherClient;
         private object lockObj;
 
         public MainWindow()
@@ -47,10 +48,11 @@ namespace Run
             mWeatherSeekTimer.Start();
 
             storageClient = new StorageServiceClient();
+            weatherClient = new WeatherServiceClient();
             Thread thread = new Thread(RequestWeather);
             thread.Start();
 
-         //   Test();
+           //Test();
         }
 
         private void btnGetWeather_Click(object sender, RoutedEventArgs e)
@@ -84,11 +86,8 @@ namespace Run
 
                 if (currentCityId!=0)
                 {
-                    string filePath = "../../../OpenWeatherMap.Net45/Models/cityList.json";
-                    var cityListModel = SerializationHelper.DeserializeFromFile(filePath);
-
-                    var city = cityListModel.cityList.Where(c => c._id == currentCityId).SingleOrDefault();
-                    currentCityName = city.name;
+                    var cityModels = storageClient.GetCityModels(CitySearchType.ByCityId, currentCityId.ToString());
+                    currentCityName = cityModels.First().name;
                 }
                 
                 var weatherItem = storageClient.GetWeatherFromDbByCity(currentCityName);
@@ -110,7 +109,6 @@ namespace Run
 
         private void btnGetNewWeather_Click(object sender, RoutedEventArgs e)
         {
-            WeatherServiceClient client = new WeatherServiceClient();
             CurrentWeatherRequest currentWeatherRequest = new CurrentWeatherRequest();
             currentWeatherRequest.CityId = 520555;
             if (!string.IsNullOrEmpty(txtCitiId.Text))
@@ -121,7 +119,7 @@ namespace Run
 
             currentWeatherRequest.UserMetricSystem = MetricSystem.Metric;
             currentWeatherRequest.UserLanguage = OpenWeatherMapLanguage.EN;
-            client.StartSeek(currentWeatherRequest);
+            weatherClient.StartSeek(currentWeatherRequest);
         }
 
 
@@ -136,10 +134,14 @@ namespace Run
 
         public void Test()
         {
-            string filePath = "../../../OpenWeatherMap.Net45/Models/cityList.json";
-            var cityListModel = SerializationHelper.DeserializeFromFile(filePath);
+            var cityModels = storageClient.GetCityModels(CitySearchType.ByCityName, "Moscow");
+            var cityModelsId = storageClient.GetCityModels(CitySearchType.ByCityId, "520555");
+            //string filePath = "../../../OpenWeatherMap.Net45/Models/CityList.json";
+            //var cityListModel = SerializationHelper.DeserializeJsonFromFile<CityListModel>(filePath, new CityListModel());
 
-            var city = cityListModel.cityList.Where(c => c.name == "Moscow").ToList();
+            //var city = cityListModel.cityList.Where(c => c.name == "Moscow").ToList();
+
+
             //SERVER SIDE METHOD
             //
             //WeatherServiceClient client = new WeatherServiceClient();

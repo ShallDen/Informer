@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Xml.Serialization;
-using OpenWeatherMap;
 
 namespace Informer.Utils
 {
@@ -47,21 +46,27 @@ namespace Informer.Utils
             }
         }
 
-        public static CityListModel DeserializeFromFile(string filePath)
+        public static T DeserializeJsonFromFile<T>(string filePath, T obj) where T : new()
         {
             //string json = File.ReadAllText(filePath);
             //string newStr = json.Replace("\n", ",\n");
 
             //   File.WriteAllText(filePath, newStr);
 
-            CityListModel cityModel = new CityListModel();
-            using (StreamReader file = File.OpenText(filePath))
+            try
             {
-                JsonSerializer serializer = new JsonSerializer();
-                cityModel = (CityListModel)serializer.Deserialize(file, typeof(CityListModel));
-              //  nn = obj.cityList.Where(c=>c._id==520555).SingleOrDefault();
+                using (StreamReader file = File.OpenText(filePath))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    obj = (T)serializer.Deserialize(file, typeof(T));
+                    return obj;
+                }
             }
-            return cityModel;
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new T();
+            }
         }
     }
 }

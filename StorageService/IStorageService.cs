@@ -20,6 +20,9 @@ namespace StorageService
         [OperationContract]
         WeatherItem GetWeatherFromDbByCity(string cityName);
 
+        [OperationContract]
+        List<CityModel> GetCityModels(CitySearchType searchType, string cityParameter);
+
 
         // TODO: Add your service operations here
     }

@@ -19,6 +19,12 @@
   <wsdl:message name="IStorageService_GetWeatherFromDbByCity_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetWeatherFromDbByCityResponse" />
   </wsdl:message>
+  <wsdl:message name="IStorageService_GetCityModels_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCityModels" />
+  </wsdl:message>
+  <wsdl:message name="IStorageService_GetCityModels_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCityModelsResponse" />
+  </wsdl:message>
   <wsdl:portType name="IStorageService">
     <wsdl:operation name="GetSum">
       <wsdl:input wsaw:Action="http://tempuri.org/IStorageService/GetSum" message="tns:IStorageService_GetSum_InputMessage" />
@@ -27,6 +33,10 @@
     <wsdl:operation name="GetWeatherFromDbByCity">
       <wsdl:input wsaw:Action="http://tempuri.org/IStorageService/GetWeatherFromDbByCity" message="tns:IStorageService_GetWeatherFromDbByCity_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStorageService/GetWeatherFromDbByCityResponse" message="tns:IStorageService_GetWeatherFromDbByCity_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCityModels">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStorageService/GetCityModels" message="tns:IStorageService_GetCityModels_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStorageService/GetCityModelsResponse" message="tns:IStorageService_GetCityModels_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IStorageService" type="tns:IStorageService">
@@ -42,6 +52,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetWeatherFromDbByCity">
       <soap:operation soapAction="http://tempuri.org/IStorageService/GetWeatherFromDbByCity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCityModels">
+      <soap:operation soapAction="http://tempuri.org/IStorageService/GetCityModels" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

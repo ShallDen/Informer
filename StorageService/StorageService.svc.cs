@@ -51,5 +51,11 @@ namespace StorageService
 
             return lastWeatherItem;
         }
+
+        public List<CityModel> GetCityModels(CitySearchType searchType, string cityParameter)
+        {
+            CityHelper cityHelper = new CityHelper();
+            return cityHelper.GetCityModels(searchType, cityParameter);
+        }
     }
 }

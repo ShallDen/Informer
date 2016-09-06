@@ -27,6 +27,12 @@ namespace Run.StorageServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStorageService/GetWeatherFromDbByCity", ReplyAction="http://tempuri.org/IStorageService/GetWeatherFromDbByCityResponse")]
         System.Threading.Tasks.Task<OpenWeatherMap.WeatherItem> GetWeatherFromDbByCityAsync(string cityName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStorageService/GetCityModels", ReplyAction="http://tempuri.org/IStorageService/GetCityModelsResponse")]
+        OpenWeatherMap.CityModel[] GetCityModels(OpenWeatherMap.CitySearchType searchType, string cityParameter);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStorageService/GetCityModels", ReplyAction="http://tempuri.org/IStorageService/GetCityModelsResponse")]
+        System.Threading.Tasks.Task<OpenWeatherMap.CityModel[]> GetCityModelsAsync(OpenWeatherMap.CitySearchType searchType, string cityParameter);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -70,6 +76,14 @@ namespace Run.StorageServiceReference {
         
         public System.Threading.Tasks.Task<OpenWeatherMap.WeatherItem> GetWeatherFromDbByCityAsync(string cityName) {
             return base.Channel.GetWeatherFromDbByCityAsync(cityName);
+        }
+        
+        public OpenWeatherMap.CityModel[] GetCityModels(OpenWeatherMap.CitySearchType searchType, string cityParameter) {
+            return base.Channel.GetCityModels(searchType, cityParameter);
+        }
+        
+        public System.Threading.Tasks.Task<OpenWeatherMap.CityModel[]> GetCityModelsAsync(OpenWeatherMap.CitySearchType searchType, string cityParameter) {
+            return base.Channel.GetCityModelsAsync(searchType, cityParameter);
         }
     }
 }

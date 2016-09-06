@@ -51,12 +51,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OpenWeatherMap.Net45\OpenWeatherMap.Net45.csproj">
-      <Project>{2b0e4bad-7158-4528-ad34-59cc2c109ee0}</Project>
-      <Name>OpenWeatherMap.Net45</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
