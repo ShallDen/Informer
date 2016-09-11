@@ -15,63 +15,117 @@ using Informer.Utils;
 
 namespace WeatherService
 {
+    [ServiceBehavior(InstanceContextMode =
+        InstanceContextMode.Single,
+        ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class WeatherService : IWeatherService
     {
-        private static List<CurrentWeatherRequest> mSeekList;
-        private static OpenWeatherMapClient mWeatherClient;
+        private OpenWeatherMapClient mWeatherClient;
+        private Timer mWeatherSeekTimer;
+        private object clientsLocker;
+        private static List<CurrentWeatherRequest> seekList;
+        private static Dictionary<Client, IWeatherServiceCallback> clients;
 
-        private WeatherService() { }
-
-        static WeatherService()
+        private WeatherService()
         {
-            mSeekList = new List<CurrentWeatherRequest>();
+            clientsLocker = new object();
+
+            seekList = new List<CurrentWeatherRequest>();
+            clients = new Dictionary<Client, IWeatherServiceCallback>();
 
             var mAppId = ConfigurationManager.AppSettings["ApplicationId"];
             mWeatherClient = new OpenWeatherMapClient(mAppId);
 
-            Timer mWeatherSeekTimer = new Timer();
+            mWeatherSeekTimer = new Timer();
             mWeatherSeekTimer.Interval = Double.Parse(ConfigurationManager.AppSettings["WeatherUpdateFromWebInterval"], System.Globalization.CultureInfo.InvariantCulture);
-           // mWeatherSeekTimer.Interval = 10000;
+            mWeatherSeekTimer.Interval = 30000;
             mWeatherSeekTimer.Elapsed += mWeatherSeekTimer_Elapsed;
-            mWeatherSeekTimer.Start();
         }
 
-        public void StartSeek(CurrentWeatherRequest currentWeatherRequest)
+        public void RegisterClient(Guid guid, CurrentWeatherRequest currentWeatherRequest)
         {
+            IWeatherServiceCallback callback = OperationContext.Current.GetCallbackChannel<IWeatherServiceCallback>();
+
+            //---prevent multiple clients adding at the same time---
+            lock (clientsLocker)
+            {
+                //TO ADD CHECK IF IT ALREADY IN clients DICTIONARY
+                clients.Add(new Client { id = guid, weatherRequest = currentWeatherRequest }, callback);
+            }
+
             if (!IsSeekListContainsCity(currentWeatherRequest))
             {
-                lock (mSeekList)
+                lock (seekList)
                 {
-                    mSeekList.Add(currentWeatherRequest);
+                    seekList.Add(currentWeatherRequest);
+                }
+
+                if (!mWeatherSeekTimer.Enabled)
+                {
+                    mWeatherSeekTimer.Start();
+                    SeekWeather();
                 }
             }
-            //TO COMMENT THIS
-           // SeekWeather();
         }
+
+        //---unregister a client by removing its GUID from 
+        // dictionary---
+        public void UnRegisterClient(Guid guid)
+        {
+            var query = from c in clients.Keys
+                        where c.id == guid
+                        select c;
+            clients.Remove(query.First());
+        }
+
+        public void NotifyClients(WeatherItem weatherResult)
+        {
+            //---get all the clients in dictionary---
+            //notify only clients who has cityId same as cityId in weatherResult
+            var clientsForUpdate = clients.Where(c => c.Key.weatherRequest.CityId == weatherResult.City.Id).Select(v => v.Value).ToList();
+
+            //---create the callback action---
+            Action<IWeatherServiceCallback> action =
+                delegate (IWeatherServiceCallback callback)
+                {
+                    //---callback to pass the seats booked 
+                    // by a client to all other clients---        
+                    callback.OnWeatherReceived(weatherResult);
+                };
+
+            //---for each connected client, invoke the callback--- 
+            clientsForUpdate.ForEach(action);
+        }     
 
         private bool IsSeekListContainsCity(CurrentWeatherRequest currentWeatherRequest)
         {
-            return mSeekList.Where(k => k.CityId == currentWeatherRequest.CityId).Any();
+            return seekList.Where(k => k.CityId == currentWeatherRequest.CityId).Any();
         }
 
-        private static void mWeatherSeekTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private bool IsSeekListContainsCity(int cityId)
+        {
+            return seekList.Where(k => k.CityId == cityId).Any();
+        }
+
+        private void mWeatherSeekTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             SeekWeather();
         }
 
-        private static void SeekWeather()
+        private void SeekWeather()
         {
-            lock (mSeekList)
+            lock (seekList)
             {
-                foreach (var item in mSeekList)
+                foreach (var item in seekList)
                 {
                     var currentWeather = mWeatherClient.CurrentWeather.GetByCityId(item.CityId, item.UserMetricSystem, item.UserLanguage);
-                    WriteWeatherInfoToDatabase(currentWeather);
+                    NotifyClients(currentWeather.Result);
+                   // WriteWeatherInfoToDatabase(currentWeather);
                 }
             }
         }
 
-        private static void WriteWeatherInfoToDatabase(Task<CurrentWeatherResponse> currentWeather)
+        private void WriteWeatherInfoToDatabase(Task<CurrentWeatherResponse> currentWeather)
         {
             //SerializationHelper.Serialize(@"C:\Users\ShallDen\Desktop\WeatherObject.xml", currentWeather.Result);
             //var weather = (SerializationHelper.Deserialize(@"C:\Users\ShallDen\Desktop\WeatherObject.xml", typeof(CurrentWeatherResponse)) as CurrentWeatherResponse);
@@ -81,18 +135,16 @@ namespace WeatherService
                 context.SaveChanges();
             }
         }
-
-        //public Task<CurrentWeatherResponse> GetWeatherFromWeb(int cityId, MetricSystem metricSystem, OpenWeatherMapLanguage language)
-        //{
-        //    var currentWeather = mWeatherClient.CurrentWeather.GetByCityId(cityId, metricSystem, language);
-        //    return currentWeather;
-        //}
     }
 }
 
 
 
-
+//public Task<CurrentWeatherResponse> GetWeatherFromWeb(int cityId, MetricSystem metricSystem, OpenWeatherMapLanguage language)
+//{
+//    var currentWeather = mWeatherClient.CurrentWeather.GetByCityId(cityId, metricSystem, language);
+//    return currentWeather;
+//}
 
 
 

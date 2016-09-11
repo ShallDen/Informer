@@ -113,6 +113,7 @@
     <None Include="Service References\WeatherServiceReference\WeatherService.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\WeatherServiceReference\WeatherService1.wsdl" />
     <None Include="Service References\WeatherServiceReference\WeatherService1.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -131,21 +132,6 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\StorageServiceReference\" />
     <WCFMetadataStorage Include="Service References\WeatherServiceReference\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\WeatherServiceReference\WeatherService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\WeatherServiceReference\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\WeatherServiceReference\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\WeatherServiceReference\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Informer.Utils\Utils.csproj">
@@ -171,6 +157,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\StorageServiceReference\StorageService1.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WeatherServiceReference\WeatherService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WeatherServiceReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WeatherServiceReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WeatherServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

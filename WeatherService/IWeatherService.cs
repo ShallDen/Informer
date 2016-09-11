@@ -10,19 +10,39 @@ using OpenWeatherMap;
 
 namespace WeatherService
 {
-    // ПРИМЕЧАНИЕ. Команду "Переименовать" в меню "Рефакторинг" можно использовать для одновременного изменения имени интерфейса "IService1" в коде и файле конфигурации.
-    [ServiceContract]
+    [ServiceContract(
+        Name = "WeatherService",
+        Namespace = "http://www.learn2develop.net/",
+        CallbackContract = typeof(IWeatherServiceCallback),
+        SessionMode = SessionMode.Required)]
     public interface IWeatherService
     {
-        // TODO: Добавьте здесь операции служб
-        [OperationContract]
-        void StartSeek(CurrentWeatherRequest currentWeatherRequest);
+      //  [OperationContract(IsOneWay = true)]
+      //  void StartSeek(CurrentWeatherRequest currentWeatherRequest);
+
+        [OperationContract(IsOneWay = true)]
+        void RegisterClient(Guid guid, CurrentWeatherRequest currentWeatherRequest);
+
+        [OperationContract(IsOneWay = true)]
+        void UnRegisterClient(Guid id);
 
         //[OperationContract]
         //Task<CurrentWeatherResponse> GetWeatherFromWeb(int cityId, MetricSystem metricSystem, OpenWeatherMapLanguage language);
     }
 
+    public interface IWeatherServiceCallback
+    {
+        [OperationContract(IsOneWay = true)]
+        void OnWeatherReceived(WeatherItem weather);
+    }
 
-    // Используйте контракт данных, как показано в примере ниже, чтобы добавить составные типы к операциям служб.
-   
+    [DataContract]
+    public class Client
+    {
+        [DataMember]
+        public Guid id { get; set; }
+
+        [DataMember]
+        public CurrentWeatherRequest weatherRequest { get; set; }
+    }
 }

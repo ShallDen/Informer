@@ -23,49 +23,49 @@ using Run.StorageServiceReference;
 using System.Threading;
 using Timer = System.Timers.Timer;
 using Informer.Utils;
+using System.ServiceModel;
 
 namespace Run
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, WeatherServiceCallback
     {
-        private readonly Timer mWeatherSeekTimer;
         private readonly StorageServiceClient storageClient;
         private readonly WeatherServiceClient weatherClient;
         private object lockObj;
+        private Guid mGuid;
 
         public MainWindow()
         {
             InitializeComponent();
 
             lockObj = new object();
-            mWeatherSeekTimer = new Timer();
-            var interval = ConfigurationManager.AppSettings["WeatherUpdateFromDbInterval"];
-            mWeatherSeekTimer.Interval = Double.Parse(interval, System.Globalization.CultureInfo.InvariantCulture);
-            mWeatherSeekTimer.Elapsed += WeatherSeekTimer_Elapsed;
-            mWeatherSeekTimer.Start();
+            mGuid = Guid.NewGuid();
 
             storageClient = new StorageServiceClient();
-            weatherClient = new WeatherServiceClient();
-            Thread thread = new Thread(RequestWeather);
+
+            InstanceContext context = new InstanceContext(this);
+            weatherClient = new WeatherServiceClient(context);
+
+            Thread thread = new Thread(() => ShowWeather(null));
             thread.Start();
 
-           //Test();
+            //Test();
+        }
+
+        public void OnWeatherReceived(WeatherItem weather)
+        {
+            ShowWeather(weather);
         }
 
         private void btnGetWeather_Click(object sender, RoutedEventArgs e)
         {
-            RequestWeather();
+            ShowWeather(null);
         }
 
-        private void WeatherSeekTimer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            RequestWeather();
-        }
-
-        private void RequestWeather()
+        public void ShowWeather(WeatherItem weatherItem)
         {
             lock (lockObj)
             {
@@ -82,15 +82,19 @@ namespace Run
                         currentCityId = int.Parse(txtCitiId.Text);
                 }));
 
-                //var temp = storageClient.GetSum(1, 3);
-
-                if (currentCityId!=0)
+                if (currentCityId != 0)
                 {
-                    var cityModels = storageClient.GetCityModels(CitySearchType.ByCityId, currentCityId.ToString());
-                    currentCityName = cityModels.First().name;
+                     var cityModels = storageClient.GetCityModels(CitySearchType.ByCityId, currentCityId.ToString());
+                     currentCityName = cityModels.First().name;
                 }
-                
-                var weatherItem = storageClient.GetWeatherFromDbByCity(currentCityName);
+
+                if (weatherItem == null)
+                {
+                    weatherItem = storageClient.GetWeatherFromDbByCity(currentCityName);
+                }
+
+                if (weatherItem == null)
+                    return;
 
                 Dispatcher.Invoke(new Action(() =>
                 {
@@ -103,6 +107,7 @@ namespace Run
                     }
 
                     txtUpdateDateTime.Text = "Last update at " + DateTime.Now.ToString();
+                    txtServerUpdateDateTime.Text = "Last web update at " + weatherItem.LastUpdate.Value.AddHours(3).ToString();
                 }));
             }
         }
@@ -111,95 +116,41 @@ namespace Run
         {
             CurrentWeatherRequest currentWeatherRequest = new CurrentWeatherRequest();
             currentWeatherRequest.CityId = 520555;
-            if (!string.IsNullOrEmpty(txtCitiId.Text))
-                currentWeatherRequest.CityId = int.Parse(txtCitiId.Text);
+
             // NN 520555
             // Phuket 1151254
             // Moscow 524901
 
+            if (!string.IsNullOrEmpty(txtCitiId.Text))
+                currentWeatherRequest.CityId = int.Parse(txtCitiId.Text);
+
             currentWeatherRequest.UserMetricSystem = MetricSystem.Metric;
             currentWeatherRequest.UserLanguage = OpenWeatherMapLanguage.EN;
-            weatherClient.StartSeek(currentWeatherRequest);
+            weatherClient.RegisterClient(mGuid, currentWeatherRequest);
         }
-
-
-
-
-
-
-
-
 
 
 
         public void Test()
         {
-            var cityModels = storageClient.GetCityModels(CitySearchType.ByCityName, "Moscow");
-            var cityModelsId = storageClient.GetCityModels(CitySearchType.ByCityId, "520555");
+            // weatherClient.RegisterClient(_guid);
+            // weatherClient.UnRegisterClient(_guid);
+
+            //var cityModels = storageClient.GetCityModels(CitySearchType.ByCityName, "Moscow");
+            //var cityModelsId = storageClient.GetCityModels(CitySearchType.ByCityId, "520555");
+
+
+
+
             //string filePath = "../../../OpenWeatherMap.Net45/Models/CityList.json";
             //var cityListModel = SerializationHelper.DeserializeJsonFromFile<CityListModel>(filePath, new CityListModel());
 
             //var city = cityListModel.cityList.Where(c => c.name == "Moscow").ToList();
+        }
 
-
-            //SERVER SIDE METHOD
-            //
-            //WeatherServiceClient client = new WeatherServiceClient();
-
-            //var userCity = 520555; // NN 520555
-            //                       // 1151254;
-
-            //var metricSystem = MetricSystem.Metric;
-            //var language = OpenWeatherMapLanguage.EN;
-            //var currentWeather = client.GetWeatherFromWeb(userCity, metricSystem, language);
-            ////
-
-
-
-
-
-
-            //using (InformerContext context = new InformerContext())
-            //{
-            //    context.WeatherItems.Add(currentWeather);
-            //    context.SaveChanges();
-
-            //    var temp = context.WeatherItems.Include("City").ToList();
-            //    foreach(var tempRes in temp)
-            //    {
-            //        Console.WriteLine(tempRes);
-            //    }
-            //}
-
-            //CLIENT SIDE METHOD
-            //
-            //using (InformerContext context = new InformerContext())
-            //{
-            //    var weatherItem = context.WeatherItems.OrderByDescending(o => o.Id);
-            //    var city = weatherItem.Select(c => c.City.Name).First();
-            //    var temperature = weatherItem.Select(c => c.Temperature.Value.ToString() + @" °C").First();
-            //    var weather = weatherItem.Select(c => c.Weather.Value).First();
-            //    var pressure = weatherItem.Select(c => c.Pressure.Value.ToString() + " hPa").First();
-
-            //    this.txtCity.Text = city;
-            //    this.txtTemperature.Text = temperature;
-            //    this.txtIcon.Text = weather;
-            //    this.txtPressure.Text = pressure;
-            //}
-            //
-
-            //this.txtCity.Text = city;
-            //this.txtTemperature.Text = weatherItem.Temperature.Value.ToString() + @" °C";
-            //this.txtIcon.Text = weatherItem.Weather.Value;
-            //this.txtPressure.Text = weatherItem.Pressure.Value.ToString() + " hPa";
-
-            //InformerContext context = new InformerContext();
-
-            //// Вставить данные в таблицу Customers с помощью LINQ
-            //context.WeatherItems.Add(currentWeather);
-
-            //// Сохранить изменения в БД
-            //context.SaveChanges();
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            weatherClient.UnRegisterClient(mGuid);
         }
     }
 }

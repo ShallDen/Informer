@@ -38,4 +38,136 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="MetricSystem" nillable="true" type="tns:MetricSystem" />
+  <xs:complexType name="WeatherItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="City" nillable="true" type="tns:City" />
+      <xs:element minOccurs="0" name="Clouds" nillable="true" type="tns:Clouds" />
+      <xs:element minOccurs="0" name="Humidity" nillable="true" type="tns:Humidity" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="LastUpdate" nillable="true" type="tns:LastUpdate" />
+      <xs:element minOccurs="0" name="Precipitation" nillable="true" type="tns:Precipitation" />
+      <xs:element minOccurs="0" name="Pressure" nillable="true" type="tns:Pressure" />
+      <xs:element minOccurs="0" name="Temperature" nillable="true" type="tns:Temperature" />
+      <xs:element minOccurs="0" name="Weather" nillable="true" type="tns:Weather" />
+      <xs:element minOccurs="0" name="Wind" nillable="true" type="tns:Wind" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WeatherItem" nillable="true" type="tns:WeatherItem" />
+  <xs:complexType name="City">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Coordinates" nillable="true" type="tns:Coordinates" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sun" nillable="true" type="tns:Sun" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="City" nillable="true" type="tns:City" />
+  <xs:complexType name="Coordinates">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Latitude" type="xs:double" />
+      <xs:element minOccurs="0" name="Longitude" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Coordinates" nillable="true" type="tns:Coordinates" />
+  <xs:complexType name="Sun">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Rise" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Set" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Sun" nillable="true" type="tns:Sun" />
+  <xs:complexType name="Clouds">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Value" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Clouds" nillable="true" type="tns:Clouds" />
+  <xs:complexType name="Humidity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Unit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Value" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Humidity" nillable="true" type="tns:Humidity" />
+  <xs:complexType name="LastUpdate">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Value" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LastUpdate" nillable="true" type="tns:LastUpdate" />
+  <xs:complexType name="Precipitation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Mode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Unit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Value" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Precipitation" nillable="true" type="tns:Precipitation" />
+  <xs:complexType name="Pressure">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Unit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Value" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Pressure" nillable="true" type="tns:Pressure" />
+  <xs:complexType name="Temperature">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Max" type="xs:double" />
+      <xs:element minOccurs="0" name="Min" type="xs:double" />
+      <xs:element minOccurs="0" name="Unit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Value" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Temperature" nillable="true" type="tns:Temperature" />
+  <xs:complexType name="Weather">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Icon" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Number" type="xs:int" />
+      <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Weather" nillable="true" type="tns:Weather" />
+  <xs:complexType name="Wind">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Direction" nillable="true" type="tns:Direction" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Speed" nillable="true" type="tns:Speed" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Wind" nillable="true" type="tns:Wind" />
+  <xs:complexType name="Direction">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Value" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Direction" nillable="true" type="tns:Direction" />
+  <xs:complexType name="Speed">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Value" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Speed" nillable="true" type="tns:Speed" />
+  <xs:complexType name="CurrentWeatherResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:WeatherItem">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="CurrentWeatherResponse" nillable="true" type="tns:CurrentWeatherResponse" />
 </xs:schema>

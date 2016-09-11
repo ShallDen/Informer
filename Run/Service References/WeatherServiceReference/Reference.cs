@@ -12,49 +12,72 @@ namespace Run.WeatherServiceReference {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="WeatherServiceReference.IWeatherService")]
-    public interface IWeatherService {
+    [System.ServiceModel.ServiceContractAttribute(Namespace="http://www.learn2develop.net/", ConfigurationName="WeatherServiceReference.WeatherService", CallbackContract=typeof(Run.WeatherServiceReference.WeatherServiceCallback), SessionMode=System.ServiceModel.SessionMode.Required)]
+    public interface WeatherService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWeatherService/StartSeek", ReplyAction="http://tempuri.org/IWeatherService/StartSeekResponse")]
-        void StartSeek(OpenWeatherMap.CurrentWeatherRequest currentWeatherRequest);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://www.learn2develop.net/WeatherService/RegisterClient")]
+        void RegisterClient(System.Guid guid, OpenWeatherMap.CurrentWeatherRequest currentWeatherRequest);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWeatherService/StartSeek", ReplyAction="http://tempuri.org/IWeatherService/StartSeekResponse")]
-        System.Threading.Tasks.Task StartSeekAsync(OpenWeatherMap.CurrentWeatherRequest currentWeatherRequest);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://www.learn2develop.net/WeatherService/RegisterClient")]
+        System.Threading.Tasks.Task RegisterClientAsync(System.Guid guid, OpenWeatherMap.CurrentWeatherRequest currentWeatherRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://www.learn2develop.net/WeatherService/UnRegisterClient")]
+        void UnRegisterClient(System.Guid id);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://www.learn2develop.net/WeatherService/UnRegisterClient")]
+        System.Threading.Tasks.Task UnRegisterClientAsync(System.Guid id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IWeatherServiceChannel : Run.WeatherServiceReference.IWeatherService, System.ServiceModel.IClientChannel {
+    public interface WeatherServiceCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://www.learn2develop.net/WeatherService/OnWeatherReceived")]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(OpenWeatherMap.CurrentWeatherResponse))]
+        void OnWeatherReceived(OpenWeatherMap.WeatherItem weather);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface WeatherServiceChannel : Run.WeatherServiceReference.WeatherService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class WeatherServiceClient : System.ServiceModel.ClientBase<Run.WeatherServiceReference.IWeatherService>, Run.WeatherServiceReference.IWeatherService {
+    public partial class WeatherServiceClient : System.ServiceModel.DuplexClientBase<Run.WeatherServiceReference.WeatherService>, Run.WeatherServiceReference.WeatherService {
         
-        public WeatherServiceClient() {
+        public WeatherServiceClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
         }
         
-        public WeatherServiceClient(string endpointConfigurationName) : 
-                base(endpointConfigurationName) {
+        public WeatherServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
         }
         
-        public WeatherServiceClient(string endpointConfigurationName, string remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public WeatherServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public WeatherServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
+        public WeatherServiceClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public WeatherServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(binding, remoteAddress) {
+        public WeatherServiceClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void StartSeek(OpenWeatherMap.CurrentWeatherRequest currentWeatherRequest) {
-            base.Channel.StartSeek(currentWeatherRequest);
+        public void RegisterClient(System.Guid guid, OpenWeatherMap.CurrentWeatherRequest currentWeatherRequest) {
+            base.Channel.RegisterClient(guid, currentWeatherRequest);
         }
         
-        public System.Threading.Tasks.Task StartSeekAsync(OpenWeatherMap.CurrentWeatherRequest currentWeatherRequest) {
-            return base.Channel.StartSeekAsync(currentWeatherRequest);
+        public System.Threading.Tasks.Task RegisterClientAsync(System.Guid guid, OpenWeatherMap.CurrentWeatherRequest currentWeatherRequest) {
+            return base.Channel.RegisterClientAsync(guid, currentWeatherRequest);
+        }
+        
+        public void UnRegisterClient(System.Guid id) {
+            base.Channel.UnRegisterClient(id);
+        }
+        
+        public System.Threading.Tasks.Task UnRegisterClientAsync(System.Guid id) {
+            return base.Channel.UnRegisterClientAsync(id);
         }
     }
 }
