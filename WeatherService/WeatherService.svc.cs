@@ -23,15 +23,15 @@ namespace WeatherService
         private OpenWeatherMapClient mWeatherClient;
         private Timer mWeatherSeekTimer;
         private object clientsLocker;
-        private static List<CurrentWeatherRequest> seekList;
-        private static Dictionary<Client, IWeatherServiceCallback> clients;
+        private static List<CurrentWeatherRequest> cityList;
+        private static Dictionary<Client, IWeatherServiceCallback> clientList;
 
         private WeatherService()
         {
             clientsLocker = new object();
 
-            seekList = new List<CurrentWeatherRequest>();
-            clients = new Dictionary<Client, IWeatherServiceCallback>();
+            cityList = new List<CurrentWeatherRequest>();
+            clientList = new Dictionary<Client, IWeatherServiceCallback>();
 
             var mAppId = ConfigurationManager.AppSettings["ApplicationId"];
             mWeatherClient = new OpenWeatherMapClient(mAppId);
@@ -49,17 +49,53 @@ namespace WeatherService
             //---prevent multiple clients adding at the same time---
             lock (clientsLocker)
             {
-                //TO ADD CHECK IF IT ALREADY IN clients DICTIONARY
-                clients.Add(new Client { id = guid, weatherRequest = currentWeatherRequest }, callback);
+                if (!IsClientRegistered(guid))
+                {
+                    clientList.Add(new Client { Id = guid, WeatherRequest = currentWeatherRequest }, callback);
+                }
+                else
+                {
+                    // Get client with specified GUID
+                    var client = clientList.First(c => c.Key.Id == guid);
+
+                    // Save cityId for city cleanup check
+                    var clientCityId = client.Key.WeatherRequest.CityId;
+
+                    if (clientCityId != currentWeatherRequest.CityId)
+                    {
+                        // User changed city
+                        client.Key.WeatherRequest.CityId = currentWeatherRequest.CityId;
+                        currentWeatherRequest.LastUpdate = DateTime.MinValue;
+
+                        // Check if it is required to remove old cityId form cityList
+                        CheckCityListForCleanUp(clientCityId);
+                        
+                        // Get new weather item for one client who changed cityId
+                        var weather = GetWeatherFromWeb(currentWeatherRequest.CityId, currentWeatherRequest.UserMetricSystem, currentWeatherRequest.UserLanguage);
+                        var weatherResult = weather.Result;
+
+                        // Notify client to update UI
+                        NotifyClient(client, weatherResult);
+                    }
+                }
             }
 
             if (!IsSeekListContainsCity(currentWeatherRequest))
             {
-                lock (seekList)
+                lock (cityList)
                 {
-                    seekList.Add(currentWeatherRequest);
+                    // Create new weather request
+                    var newRequest = new CurrentWeatherRequest();
+
+                    newRequest.CityId = currentWeatherRequest.CityId;
+                    newRequest.LastUpdate = currentWeatherRequest.LastUpdate;
+                    newRequest.UserLanguage = currentWeatherRequest.UserLanguage;
+                    newRequest.UserMetricSystem = currentWeatherRequest.UserMetricSystem;
+
+                    cityList.Add(newRequest);
                 }
 
+                // Start seek weather at the beginning
                 if (!mWeatherSeekTimer.Enabled)
                 {
                     mWeatherSeekTimer.Start();
@@ -72,39 +108,91 @@ namespace WeatherService
         // dictionary---
         public void UnRegisterClient(Guid guid)
         {
-            var query = from c in clients.Keys
-                        where c.id == guid
+            var query = from c in clientList.Keys
+                        where c.Id == guid
                         select c;
-            clients.Remove(query.First());
+
+            //get city for cleanup check
+            var cityId = query.First().WeatherRequest.CityId;
+            clientList.Remove(query.First());
+
+            CheckCityListForCleanUp(cityId);
+        }
+
+        // Check if we need to remove city which isn't used by clients
+        private void CheckCityListForCleanUp(int cityId)
+        {
+            // Find clients who has cleanup cityid
+            // If there no such clients, it removes this city from seek cityList
+            bool isClientsExists = clientList.Keys.Any(c => c.WeatherRequest.CityId == cityId);
+
+            if (!isClientsExists)
+            {
+                lock (cityList)
+                {
+                    var city = cityList.First(c => c.CityId == cityId);
+                    cityList.Remove(city);
+                }
+            }
+        }
+
+        private bool IsClientRegistered(Guid guid)
+        {
+            var result = clientList.Keys.FirstOrDefault(c => c.Id == guid);
+            return result != null;
         }
 
         public void NotifyClients(WeatherItem weatherResult)
         {
-            //---get all the clients in dictionary---
-            //notify only clients who has cityId same as cityId in weatherResult
-            var clientsForUpdate = clients.Where(c => c.Key.weatherRequest.CityId == weatherResult.City.Id).Select(v => v.Value).ToList();
+            try
+            {
+                //---get all the clients in dictionary---
+                // Notify only clients who has cityId same as cityId in weatherResult
+                var clientsForUpdate = clientList.Where(c => c.Key.WeatherRequest.CityId == weatherResult.City.Id).Select(v => v.Value).ToList();
 
-            //---create the callback action---
-            Action<IWeatherServiceCallback> action =
-                delegate (IWeatherServiceCallback callback)
+                //---create the callback action---
+                Action<IWeatherServiceCallback> action =
+                    delegate (IWeatherServiceCallback callback)
+                    {
+                        //---callback to pass the seats booked 
+                        // by a client to all other clients---        
+                        callback.OnWeatherReceived(weatherResult);
+                    };
+
+                //---for each connected client, invoke the callback--- 
+                clientsForUpdate.ForEach(action);
+            }
+            catch (CommunicationObjectAbortedException ex)
+            {
+                // clientList.Clear();
+            }
+        }
+
+        public void NotifyClient(KeyValuePair<Client, IWeatherServiceCallback> client, WeatherItem weatherResult)
+        {
+            try
+            {
+                var clientForUpdate = clientList.Where(c => c.Key.Id == client.Key.Id).Select(v => v.Value).SingleOrDefault();
+
+                if (clientForUpdate != null)
                 {
-                    //---callback to pass the seats booked 
-                    // by a client to all other clients---        
-                    callback.OnWeatherReceived(weatherResult);
-                };
-
-            //---for each connected client, invoke the callback--- 
-            clientsForUpdate.ForEach(action);
-        }     
+                    clientForUpdate.OnWeatherReceived(weatherResult);
+                }
+            }
+            catch (CommunicationObjectAbortedException ex)
+            {
+                // clientList.Clear();
+            }
+        }
 
         private bool IsSeekListContainsCity(CurrentWeatherRequest currentWeatherRequest)
         {
-            return seekList.Where(k => k.CityId == currentWeatherRequest.CityId).Any();
+            return cityList.Where(k => k.CityId == currentWeatherRequest.CityId).Any();
         }
 
         private bool IsSeekListContainsCity(int cityId)
         {
-            return seekList.Where(k => k.CityId == cityId).Any();
+            return cityList.Where(k => k.CityId == cityId).Any();
         }
 
         private void mWeatherSeekTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -114,13 +202,20 @@ namespace WeatherService
 
         private void SeekWeather()
         {
-            lock (seekList)
+            lock (cityList)
             {
-                foreach (var item in seekList)
+                foreach (var item in cityList)
                 {
                     var currentWeather = mWeatherClient.CurrentWeather.GetByCityId(item.CityId, item.UserMetricSystem, item.UserLanguage);
-                    NotifyClients(currentWeather.Result);
-                   // WriteWeatherInfoToDatabase(currentWeather);
+                    var currentWeatherResult = currentWeather.Result;
+
+                    // Continue if it is really new weather update
+                    if (item.LastUpdate < currentWeatherResult.LastUpdate.Value)
+                    {
+                        item.LastUpdate = currentWeatherResult.LastUpdate.Value;
+                        NotifyClients(currentWeatherResult);
+                        WriteWeatherInfoToDatabase(currentWeather);
+                    }
                 }
             }
         }
@@ -135,16 +230,18 @@ namespace WeatherService
                 context.SaveChanges();
             }
         }
+
+        public Task<CurrentWeatherResponse> GetWeatherFromWeb(int cityId, MetricSystem metricSystem, OpenWeatherMapLanguage language)
+        {
+            var currentWeather = mWeatherClient.CurrentWeather.GetByCityId(cityId, metricSystem, language);
+            return currentWeather;
+        }
     }
 }
 
 
 
-//public Task<CurrentWeatherResponse> GetWeatherFromWeb(int cityId, MetricSystem metricSystem, OpenWeatherMapLanguage language)
-//{
-//    var currentWeather = mWeatherClient.CurrentWeather.GetByCityId(cityId, metricSystem, language);
-//    return currentWeather;
-//}
+
 
 
 

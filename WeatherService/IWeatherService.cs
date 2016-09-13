@@ -40,9 +40,9 @@ namespace WeatherService
     public class Client
     {
         [DataMember]
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
 
         [DataMember]
-        public CurrentWeatherRequest weatherRequest { get; set; }
+        public CurrentWeatherRequest WeatherRequest { get; set; }
     }
 }

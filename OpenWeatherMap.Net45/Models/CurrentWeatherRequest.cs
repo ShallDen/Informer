@@ -11,5 +11,6 @@ namespace OpenWeatherMap
         public int CityId { get; set; }
         public MetricSystem UserMetricSystem { get; set; } = MetricSystem.Metric;
         public OpenWeatherMapLanguage UserLanguage { get; set; } = OpenWeatherMapLanguage.EN;
+        public DateTime LastUpdate { get; set; } = DateTime.MinValue;
     }
 }

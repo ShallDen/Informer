@@ -67,49 +67,47 @@ namespace Run
 
         public void ShowWeather(WeatherItem weatherItem)
         {
-            lock (lockObj)
+            string currentCityName = string.Empty;
+            int currentCityId = 0;
+
+            Dispatcher.Invoke(new Action(() =>
             {
-                string currentCityName = string.Empty;
-                int currentCityId = 0;
+                if (string.IsNullOrEmpty(txtCityInput.Text))
+                    currentCityName = "Nizhniy Novgorod";
+                else
+                    currentCityName = txtCityInput.Text;
+                if (!string.IsNullOrEmpty(txtCitiId.Text))
+                    currentCityId = int.Parse(txtCitiId.Text);
+            }));
 
-                Dispatcher.Invoke(new Action(() =>
-                {
-                    if (string.IsNullOrEmpty(txtCityInput.Text))
-                        currentCityName = "Nizhniy Novgorod";
-                    else
-                        currentCityName = txtCityInput.Text;
-                    if (!string.IsNullOrEmpty(txtCitiId.Text))
-                        currentCityId = int.Parse(txtCitiId.Text);
-                }));
-
-                if (currentCityId != 0)
-                {
-                     var cityModels = storageClient.GetCityModels(CitySearchType.ByCityId, currentCityId.ToString());
-                     currentCityName = cityModels.First().name;
-                }
-
-                if (weatherItem == null)
-                {
-                    weatherItem = storageClient.GetWeatherFromDbByCity(currentCityName);
-                }
-
-                if (weatherItem == null)
-                    return;
-
-                Dispatcher.Invoke(new Action(() =>
-                {
-                    if (weatherItem != null)
-                    {
-                        this.txtCity.Text = weatherItem.City.Name;
-                        this.txtTemperature.Text = weatherItem.Temperature.Value.ToString() + @" °C";
-                        this.txtIcon.Text = weatherItem.Weather.Value;
-                        this.txtPressure.Text = weatherItem.Pressure.Value.ToString() + " hPa";
-                    }
-
-                    txtUpdateDateTime.Text = "Last update at " + DateTime.Now.ToString();
-                    txtServerUpdateDateTime.Text = "Last web update at " + weatherItem.LastUpdate.Value.AddHours(3).ToString();
-                }));
+            if (currentCityId != 0)
+            {
+                var cityModels = storageClient.GetCityModels(CitySearchType.ByCityId, currentCityId.ToString());
+                currentCityName = cityModels.First().name;
             }
+
+            if (weatherItem == null)
+            {
+                weatherItem = storageClient.GetWeatherFromDbByCity(currentCityName);
+            }
+
+            if (weatherItem == null)
+                return;
+
+            Dispatcher.Invoke(new Action(() =>
+            {
+                if (weatherItem != null)
+                {
+                    this.txtCity.Text = weatherItem.City.Name;
+                    this.txtTemperature.Text = weatherItem.Temperature.Value.ToString() + @" °C";
+                    this.txtIcon.Text = weatherItem.Weather.Value;
+                    this.txtPressure.Text = weatherItem.Pressure.Value.ToString() + " hPa";
+                }
+
+                txtUpdateDateTime.Text = "Last update at " + DateTime.Now.ToString();
+                txtServerUpdateDateTime.Text = "Last web update at " + weatherItem.LastUpdate.Value.AddHours(3).ToString();
+            }));
+
         }
 
         private void btnGetNewWeather_Click(object sender, RoutedEventArgs e)
