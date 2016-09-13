@@ -17,7 +17,8 @@ namespace WeatherService
 {
     [ServiceBehavior(InstanceContextMode =
         InstanceContextMode.Single,
-        ConcurrencyMode = ConcurrencyMode.Multiple)]
+        ConcurrencyMode = ConcurrencyMode.Multiple, 
+        UseSynchronizationContext = false)]
     public class WeatherService : IWeatherService
     {
         private OpenWeatherMapClient mWeatherClient;
@@ -69,7 +70,7 @@ namespace WeatherService
 
                         // Check if it is required to remove old cityId form cityList
                         CheckCityListForCleanUp(clientCityId);
-                        
+
                         // Get new weather item for one client who changed cityId
                         var weather = GetWeatherFromWeb(currentWeatherRequest.CityId, currentWeatherRequest.UserMetricSystem, currentWeatherRequest.UserLanguage);
                         var weatherResult = weather.Result;
@@ -142,49 +143,6 @@ namespace WeatherService
             return result != null;
         }
 
-        public void NotifyClients(WeatherItem weatherResult)
-        {
-            try
-            {
-                //---get all the clients in dictionary---
-                // Notify only clients who has cityId same as cityId in weatherResult
-                var clientsForUpdate = clientList.Where(c => c.Key.WeatherRequest.CityId == weatherResult.City.Id).Select(v => v.Value).ToList();
-
-                //---create the callback action---
-                Action<IWeatherServiceCallback> action =
-                    delegate (IWeatherServiceCallback callback)
-                    {
-                        //---callback to pass the seats booked 
-                        // by a client to all other clients---        
-                        callback.OnWeatherReceived(weatherResult);
-                    };
-
-                //---for each connected client, invoke the callback--- 
-                clientsForUpdate.ForEach(action);
-            }
-            catch (CommunicationObjectAbortedException ex)
-            {
-                // clientList.Clear();
-            }
-        }
-
-        public void NotifyClient(KeyValuePair<Client, IWeatherServiceCallback> client, WeatherItem weatherResult)
-        {
-            try
-            {
-                var clientForUpdate = clientList.Where(c => c.Key.Id == client.Key.Id).Select(v => v.Value).SingleOrDefault();
-
-                if (clientForUpdate != null)
-                {
-                    clientForUpdate.OnWeatherReceived(weatherResult);
-                }
-            }
-            catch (CommunicationObjectAbortedException ex)
-            {
-                // clientList.Clear();
-            }
-        }
-
         private bool IsSeekListContainsCity(CurrentWeatherRequest currentWeatherRequest)
         {
             return cityList.Where(k => k.CityId == currentWeatherRequest.CityId).Any();
@@ -213,10 +171,75 @@ namespace WeatherService
                     if (item.LastUpdate < currentWeatherResult.LastUpdate.Value)
                     {
                         item.LastUpdate = currentWeatherResult.LastUpdate.Value;
-                        NotifyClients(currentWeatherResult);
                         WriteWeatherInfoToDatabase(currentWeather);
+
+                        var needToUpdateClients = clientList.Where(c => c.Key.WeatherRequest.CityId == currentWeatherResult.City.Id).ToList();
+                        while (needToUpdateClients.Any())
+                        {
+                            NotifyClients(currentWeatherResult, needToUpdateClients);
+                        }
                     }
                 }
+            }
+        }
+
+        public void NotifyClients(WeatherItem weatherResult, List<KeyValuePair<Client, IWeatherServiceCallback>> needToUpdateClients)
+        {
+            IWeatherServiceCallback currentCallback = null;
+            try
+            {
+                //---get all the clients in dictionary---
+                // Notify only clients who has cityId same as cityId in weatherResult
+                var query = needToUpdateClients.Select(v => v.Value).ToList();
+
+                //---create the callback action---
+                Action<IWeatherServiceCallback> action =
+                    delegate (IWeatherServiceCallback callback)
+                    {
+                        //---callback to pass the seats booked 
+                        // by a client to all other clients---  
+                        currentCallback = callback;
+                        callback.OnWeatherReceived(weatherResult);
+
+                        var updatedClient = needToUpdateClients.FirstOrDefault(c => c.Value == callback);
+                        needToUpdateClients.Remove(updatedClient);
+                    };
+
+                //---for each connected client, invoke the callback--- 
+                query.ForEach(action);
+            }
+            catch (TimeoutException ex)
+            {
+                var clientForDelete = clientList.FirstOrDefault(c => c.Value == currentCallback);
+                clientList.Remove(clientForDelete.Key);
+
+                clientForDelete = needToUpdateClients.FirstOrDefault(c => c.Value == currentCallback);
+                needToUpdateClients.Remove(clientForDelete);
+            }
+            catch (CommunicationObjectAbortedException ex)
+            {
+                var clientForDelete = clientList.FirstOrDefault(c => c.Value == currentCallback);
+                clientList.Remove(clientForDelete.Key);
+
+                clientForDelete = needToUpdateClients.FirstOrDefault(c => c.Value == currentCallback);
+                needToUpdateClients.Remove(clientForDelete);
+            }
+        }
+
+        public void NotifyClient(KeyValuePair<Client, IWeatherServiceCallback> client, WeatherItem weatherResult)
+        {
+            try
+            {
+                var clientForUpdate = clientList.Where(c => c.Key.Id == client.Key.Id).Select(v => v.Value).SingleOrDefault();
+
+                if (clientForUpdate != null)
+                {
+                    clientForUpdate.OnWeatherReceived(weatherResult);
+                }
+            }
+            catch (CommunicationObjectAbortedException ex)
+            {
+                // clientList.Clear();
             }
         }
 

@@ -3,6 +3,7 @@
   <xs:complexType name="CurrentWeatherRequest">
     <xs:sequence>
       <xs:element minOccurs="0" name="CityId" type="xs:int" />
+      <xs:element minOccurs="0" name="LastUpdate" type="xs:dateTime" />
       <xs:element minOccurs="0" name="UserLanguage" type="tns:OpenWeatherMapLanguage" />
       <xs:element minOccurs="0" name="UserMetricSystem" type="tns:MetricSystem" />
     </xs:sequence>
