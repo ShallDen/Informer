@@ -67,6 +67,8 @@ namespace QuickApp
         {
             InitializeComponent();
 
+            RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.HighQuality);
+
             MainWindow._Instance = this;
 
             this.AllowsTransparency = true;
