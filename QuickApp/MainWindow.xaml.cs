@@ -35,8 +35,10 @@ namespace QuickApp
         public static readonly RoutedEvent OpenMainWindowEvent = EventManager.RegisterRoutedEvent("OpenMainWindow", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(MainWindow));
         public static readonly RoutedEvent CloseMainWindowEvent = EventManager.RegisterRoutedEvent("CloseMainWindow", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(MainWindow));
 
-        public double MainWindowsLeftClosed { get { return System.Windows.SystemParameters.PrimaryScreenWidth; } set { } }
-        public double MainWindowsLeftOpened { get { return System.Windows.SystemParameters.PrimaryScreenWidth - WindowWidth; } set { } }
+        public double ScreenWidth { get { return System.Windows.Forms.Screen.AllScreens.Last().WorkingArea.Width; } }
+        public double ScreenHeight { get { return System.Windows.Forms.Screen.AllScreens.Last().WorkingArea.Height; } }
+        public double MainWindowsLeftClosed { get { return ScreenWidth; } }
+        public double MainWindowsLeftOpened { get { return ScreenWidth - WindowWidth; } }
 
         private static MainWindow _Instance;
         public static MainWindow Instance
@@ -75,10 +77,10 @@ namespace QuickApp
             this.Topmost = true;
             this.ShowInTaskbar = false;
 
-            this.Height = System.Windows.SystemParameters.WorkArea.Height;
-            this.Width = 0;
+            this.Height = ScreenHeight;
+            //this.Width = 0;
             this.Top = 0;
-            this.Left = System.Windows.SystemParameters.PrimaryScreenWidth;
+            this.Left = ScreenWidth;
 
             Thread monitorMouseThread = new Thread(() => MonitorMouseThread());
             monitorMouseThread.Start();
@@ -89,14 +91,14 @@ namespace QuickApp
             while (true)
             {
                 Thread.Sleep(100);
-                if (System.Windows.Forms.Cursor.Position.X >= System.Windows.SystemParameters.PrimaryScreenWidth-1)
+                if (System.Windows.Forms.Cursor.Position.X >= ScreenWidth - 1 && System.Windows.Forms.Cursor.Position.Y > ScreenHeight * 0.3)
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         this.CurrentWindowState = GlobalWindowState.Opening;
                     });
                 }
-                else if ((this.CurrentWindowState == GlobalWindowState.Opened || this.CurrentWindowState == GlobalWindowState.Opening) && System.Windows.Forms.Cursor.Position.X < System.Windows.SystemParameters.PrimaryScreenWidth - 100)
+                else if ((this.CurrentWindowState == GlobalWindowState.Opened || this.CurrentWindowState == GlobalWindowState.Opening) && System.Windows.Forms.Cursor.Position.X < ScreenWidth - WindowWidth)
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
@@ -177,41 +179,6 @@ namespace QuickApp
         {
             add { AddHandler(CloseMainWindowEvent, value); }
             remove { RemoveHandler(CloseMainWindowEvent, value); }
-        }
- 
-        private void MainWindow_SourceInitialized(object sender, EventArgs e)
-        {
-            WindowInteropHelper helper = new WindowInteropHelper(this);
-            HwndSource source = HwndSource.FromHwnd(helper.Handle);
-            source.AddHook(WndProc);
-        }
-
-        const int WM_SYSCOMMAND = 0x0112;
-        const int SC_MOVE = 0xF010;
-        const int SC_RESTORE = 0xF120;
-
-        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            switch (msg)
-            {
-                case WM_SYSCOMMAND:
-                    int command = wParam.ToInt32() & 0xfff0;
-                    if (command == SC_MOVE)
-                    {
-                        // prevent user from moving the window
-                        handled = true;
-                    }
-                    else if (command == SC_RESTORE && WindowState == WindowState.Maximized)
-                    {
-                        // prevent user from restoring the window while it is maximized
-                        // (but allow restoring when it is minimized)
-                        handled = true;
-                    }
-                    break;
-                default:
-                    break;
-            }
-            return IntPtr.Zero;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -319,62 +286,6 @@ namespace QuickApp
             NOSENDCHANGING = 0x0400,
             DEFERERASE = 0x2000,
             ASYNCWINDOWPOS = 0x4000;
-        }
-
-        private void SkypeGrid_MouseEnter(object sender, MouseEventArgs e)
-        {
-            var bc = new BrushConverter();
-            SkypeGrid.Background = (System.Windows.Media.Brush)bc.ConvertFrom("#22232e");
-            SkypeGridBorder.Visibility = Visibility.Visible;
-        }
-
-        private void SkypeGrid_MouseLeave(object sender, MouseEventArgs e)
-        {
-            var bc = new BrushConverter();
-            SkypeGrid.Background = (System.Windows.Media.Brush)bc.ConvertFrom("#30313d");
-            SkypeGridBorder.Visibility = Visibility.Collapsed;
-        }
-
-        private void CalculatorGrid_MouseEnter(object sender, MouseEventArgs e)
-        {
-            var bc = new BrushConverter();
-            CalculatorGrid.Background = (System.Windows.Media.Brush)bc.ConvertFrom("#22232e");
-            CalculatorGridBorder.Visibility = Visibility.Visible;
-        }
-
-        private void CalculatorGrid_MouseLeave(object sender, MouseEventArgs e)
-        {
-            var bc = new BrushConverter();
-            CalculatorGrid.Background = (System.Windows.Media.Brush)bc.ConvertFrom("#30313d");
-            CalculatorGridBorder.Visibility = Visibility.Collapsed;
-        }
-
-        private void CalendarGrid_MouseEnter(object sender, MouseEventArgs e)
-        {
-            var bc = new BrushConverter();
-            CalendarGrid.Background = (System.Windows.Media.Brush)bc.ConvertFrom("#22232e");
-            CalendarGridBorder.Visibility = Visibility.Visible;
-        }
-
-        private void CalendarGrid_MouseLeave(object sender, MouseEventArgs e)
-        {
-            var bc = new BrushConverter();
-            CalendarGrid.Background = (System.Windows.Media.Brush)bc.ConvertFrom("#30313d");
-            CalendarGridBorder.Visibility = Visibility.Collapsed;
-        }
-
-        private void AddGrid_MouseEnter(object sender, MouseEventArgs e)
-        {
-            var bc = new BrushConverter();
-            AddGrid.Background = (System.Windows.Media.Brush)bc.ConvertFrom("#22232e");
-            AddGridBorder.Visibility = Visibility.Visible;
-        }
-
-        private void AddGrid_MouseLeave(object sender, MouseEventArgs e)
-        {
-            var bc = new BrushConverter();
-            AddGrid.Background = (System.Windows.Media.Brush)bc.ConvertFrom("#30313d");
-            AddGridBorder.Visibility = Visibility.Collapsed;
         }
     }
 
