@@ -22,6 +22,7 @@ using System.ComponentModel;
 using System.Drawing;
 using MahApps.Metro.Controls;
 using System.Globalization;
+using QuickApp.ViewModel;
 
 namespace QuickApp
 {
@@ -30,7 +31,7 @@ namespace QuickApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int WindowWidth = 89;
+        MainWindowViewModel Model { get; set; }
 
         public static readonly RoutedEvent OpenMainWindowEvent = EventManager.RegisterRoutedEvent("OpenMainWindow", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(MainWindow));
         public static readonly RoutedEvent CloseMainWindowEvent = EventManager.RegisterRoutedEvent("CloseMainWindow", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(MainWindow));
@@ -38,7 +39,7 @@ namespace QuickApp
         public double ScreenWidth { get { return System.Windows.Forms.Screen.AllScreens.Last().WorkingArea.Width; } }
         public double ScreenHeight { get { return System.Windows.Forms.Screen.AllScreens.Last().WorkingArea.Height; } }
         public double MainWindowsLeftClosed { get { return ScreenWidth; } }
-        public double MainWindowsLeftOpened { get { return ScreenWidth - WindowWidth; } }
+        public double MainWindowsLeftOpened { get { return ScreenWidth - Model.State.WindowWidth; } }
 
         private static MainWindow _Instance;
         public static MainWindow Instance
@@ -69,6 +70,8 @@ namespace QuickApp
         {
             InitializeComponent();
 
+            Model = this.DataContext as MainWindowViewModel;
+
             RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.HighQuality);
 
             MainWindow._Instance = this;
@@ -98,7 +101,7 @@ namespace QuickApp
                         this.CurrentWindowState = GlobalWindowState.Opening;
                     });
                 }
-                else if ((this.CurrentWindowState == GlobalWindowState.Opened || this.CurrentWindowState == GlobalWindowState.Opening) && System.Windows.Forms.Cursor.Position.X < ScreenWidth - WindowWidth)
+                else if ((this.CurrentWindowState == GlobalWindowState.Opened || this.CurrentWindowState == GlobalWindowState.Opening) && System.Windows.Forms.Cursor.Position.X < ScreenWidth - Model.State.WindowWidth)
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
@@ -133,7 +136,7 @@ namespace QuickApp
                             {
                                 if (this.CurrentWindowState == GlobalWindowState.Closed || this.CurrentWindowState == GlobalWindowState.Undefined)
                                 {
-                                    WindowUtilties.AnimateWindowSize(this, WindowWidth, MainWindowsLeftOpened);
+                                    WindowUtilties.AnimateWindowSize(this, Model.State.WindowWidth, MainWindowsLeftOpened);
                                     RoutedEventArgs newEventArgs = new RoutedEventArgs(OpenMainWindowEvent);
                                     RaiseEvent(newEventArgs);
                                     this._CurrentWindowState = GlobalWindowState.Opened;

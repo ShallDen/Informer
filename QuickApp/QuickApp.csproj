@@ -69,6 +69,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\MarginTopConverter.cs" />
+    <Compile Include="Converters\MathConverter.cs" />
+    <Compile Include="MainWindowState.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Timers\ATimer.cs" />
     <Compile Include="Timers\MicroTimer.cs" />
     <Page Include="MainWindow.xaml">
