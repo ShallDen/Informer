@@ -36,7 +36,7 @@ namespace QuickApp
         public static readonly RoutedEvent OpenMainWindowEvent = EventManager.RegisterRoutedEvent("OpenMainWindow", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(MainWindow));
         public static readonly RoutedEvent CloseMainWindowEvent = EventManager.RegisterRoutedEvent("CloseMainWindow", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(MainWindow));
 
-        public double ScreenWidth { get { return System.Windows.Forms.Screen.AllScreens.Last().WorkingArea.Width; } }
+        public double ScreenWidth { get { return System.Windows.Forms.Screen.AllScreens.Last().WorkingArea.X + System.Windows.Forms.Screen.AllScreens.Last().WorkingArea.Width; } }
         public double ScreenHeight { get { return System.Windows.Forms.Screen.AllScreens.Last().WorkingArea.Height; } }
         public double MainWindowsLeftClosed { get { return ScreenWidth; } }
         public double MainWindowsLeftOpened { get { return ScreenWidth - Model.State.WindowWidth; } }
