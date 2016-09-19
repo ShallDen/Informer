@@ -13,9 +13,9 @@
                       Opacity="0.95"
                       ResizeMode="NoResize"
                       WindowStyle="None"
-                      Width="70"
+                      Width="90"
                       BorderBrush="#FFA5A7B1"
-                      BorderThickness="1,1,0,1"
+                      BorderThickness="1,0,0,0"
                       Background="#30313d"
                       MinWidth="0"
                       Title="MainWindow">
@@ -56,7 +56,7 @@
             <!--<Setter Property="Height" Value="10"/>-->
         </Style>
         <Style x:Key="GridBorderStyle" TargetType="{x:Type Grid}" BasedOn="{StaticResource GridStyle}">
-            <Setter Property="Height" Value="{Binding ElementName=MyMainWindow, Path=ActualWidth, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE/8}"/>
+            <Setter Property="Height" Value="{Binding State.WindowWidth, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE/8}"/>
         </Style>
         <Style x:Key="GridClickableStyle" TargetType="{x:Type Grid}" BasedOn="{StaticResource GridStyle}">
             <Setter Property="Cursor" Value="Hand"/>
@@ -87,7 +87,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="0,0,0,0"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Width" Value="{Binding ElementName=MyMainWindow, Path=ActualWidth, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*0.75}"/>
+            <Setter Property="Width" Value="{Binding State.WindowWidth, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*0.75}"/>
             <Setter Property="Height" Value="1"/>
             <Setter Property="BorderBrush" Value="#FF677F91"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -95,12 +95,12 @@
 
         <Style x:Key="AppLabelStyle" TargetType="{x:Type Label}">
             <Setter Property="FontFamily" Value="Roboto Condensed Light"/>
-            <Setter Property="FontSize" Value="{Binding ElementName=MyMainWindow, Path=ActualWidth, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE/10+6}"/>
+            <Setter Property="FontSize" Value="{Binding State.WindowWidth, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE/10+6}"/>
             <Setter Property="Foreground" Value="#CAD2E0"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="Width" Value="{Binding ElementName=MyMainWindow, Path=ActualWidth}"/>
+            <Setter Property="Width" Value="{Binding State.WindowWidth}"/>
             <Setter Property="Height" Value="Auto"/>
             <Setter Property="Padding" Value="2,0,2,5"/>
         </Style>
@@ -108,54 +108,122 @@
         <Style x:Key="AppIconStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignFloatingActionLightButton}">
             <Setter Property="BorderBrush" Value="#30313d"/>
             <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth0"/>
-            <Setter Property="Margin" Value="{Binding ElementName=MyMainWindow, Path=ActualWidth, Converter={StaticResource MarginTopConverter}}"/>
+            <Setter Property="Margin" Value="{Binding State.WindowWidth, Converter={StaticResource MarginTopConverter}}"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="Width" Value="{Binding ElementName=MyMainWindow, Path=ActualWidth, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*0.7}"/>
+            <Setter Property="Width" Value="{Binding State.WindowWidth, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*0.7}"/>
             <Setter Property="Height" Value="{Binding ActualWidth, RelativeSource={RelativeSource Self}}" />
         </Style>
     </Window.Resources>
 
     <Grid>
         <StackPanel Style="{StaticResource AppsStackPanelStyle}">
+            <Button Style="{StaticResource AppIconStyle}" BorderBrush="#FFA5A7B1">
+                <Button.Background>
+                    <ImageBrush ImageSource="Resources/rocket.png" />
+                </Button.Background>
+            </Button>
+            
             <Grid Style="{StaticResource GridBorderStyle}">
                 <Border Style="{StaticResource AppsStackPanelBorderStyle}"/>
             </Grid>
-            
-            <Grid Style="{StaticResource AppGridStyle}">
-                <StackPanel>
-                    <Button Style="{StaticResource AppIconStyle}">
-                        <Button.Background>
-                            <ImageBrush ImageSource="Resources/skype-flat.png" />
-                        </Button.Background>
-                    </Button>
-                    <Label Content="Skype" Style="{StaticResource AppLabelStyle}"/>
-                </StackPanel>
-            </Grid>
-            <Grid Style="{StaticResource AppGridStyle}">
-                <StackPanel>
-                    <Button Style="{StaticResource AppIconStyle}">
-                        <Button.Background>
-                            <ImageBrush ImageSource="Resources/calendar-icon.png" />
-                        </Button.Background>
-                    </Button>
-                    <Label Content="Calendar" Style="{StaticResource AppLabelStyle}"/>
-                </StackPanel>
-            </Grid>
-            <Grid Style="{StaticResource AppGridStyle}">
-                <StackPanel>
-                    <Button Style="{StaticResource AppIconStyle}">
-                        <Button.Background>
-                            <ImageBrush ImageSource="Resources/calculator-icon.png" />
-                        </Button.Background>
-                    </Button>
-                    <Label Content="Calculator" Style="{StaticResource AppLabelStyle}"/>
-                </StackPanel>
-            </Grid>
-            
-            <Grid Style="{StaticResource AppStoreGridStyle}">
-                <Image HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Center" Source="Resources/threedot.gif" UseLayoutRounding="False" Margin="0" Width="35"/>
-            </Grid>
+
+            <materialDesign:Transitioner SelectedIndex="0">
+                <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect None}">
+                    <materialDesign:TransitionerSlide.OpeningEffects>
+                        <materialDesign:TransitionEffect Kind="None" />
+                    </materialDesign:TransitionerSlide.OpeningEffects>
+                    <Grid>
+                        <Button Name="MoveAppsSlideFrom0To1" Visibility="Collapsed" Command="{x:Static materialDesign:Transitioner.MoveLastCommand}" VerticalAlignment="Top" />
+                    </Grid>
+                </materialDesign:TransitionerSlide>
+                <materialDesign:TransitionerSlide Name="AppsSlide1" OpeningEffect="{materialDesign:TransitionEffect FadeIn, Duration=0:0:1}">
+                    <Grid>
+                        <Grid>
+                            <Button Name="MoveAppsSlideFrom1To0" Visibility="Collapsed" Command="{x:Static materialDesign:Transitioner.MoveFirstCommand}" VerticalAlignment="Bottom" />
+                        </Grid>
+                        <StackPanel Style="{StaticResource AppsStackPanelStyle}">
+                            <Grid Style="{StaticResource AppGridStyle}">
+                                <materialDesign:TransitioningContent RunHint="All" OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight, Duration=0:0:0.6}">
+                                    <StackPanel>
+                                        <Button Style="{StaticResource AppIconStyle}">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="Resources/calculator-icon.png" />
+                                            </Button.Background>
+                                        </Button>
+                                        <Label Content="Calculator" Style="{StaticResource AppLabelStyle}"/>
+                                    </StackPanel>
+                                </materialDesign:TransitioningContent>
+                            </Grid>
+                            <Grid Style="{StaticResource AppGridStyle}">
+                                <materialDesign:TransitioningContent RunHint="All" OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight, Duration=0:0:0.5}">
+                                    <StackPanel>
+                                        <Button Style="{StaticResource AppIconStyle}">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="Resources/skype-flat.png" />
+                                            </Button.Background>
+                                        </Button>
+                                        <Label Content="Skype" Style="{StaticResource AppLabelStyle}"/>
+                                    </StackPanel>
+                                </materialDesign:TransitioningContent>
+                            </Grid>
+                            <Grid Style="{StaticResource AppGridStyle}">
+                                <materialDesign:TransitioningContent RunHint="All" OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight, Duration=0:0:0.4}">
+                                    <StackPanel>
+                                        <Button Style="{StaticResource AppIconStyle}">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="Resources/calendar-icon.png" />
+                                            </Button.Background>
+                                        </Button>
+                                        <Label Content="Calendar" Style="{StaticResource AppLabelStyle}"/>
+                                    </StackPanel>
+                                </materialDesign:TransitioningContent>
+                            </Grid>
+                            <Grid Style="{StaticResource AppGridStyle}">
+                                <materialDesign:TransitioningContent RunHint="All" OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight, Duration=0:0:0.4}">
+                                    <StackPanel>
+                                        <Button Style="{StaticResource AppIconStyle}">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="Resources/skype-flat.png" />
+                                            </Button.Background>
+                                        </Button>
+                                        <Label Content="Skype" Style="{StaticResource AppLabelStyle}"/>
+                                    </StackPanel>
+                                </materialDesign:TransitioningContent>
+                            </Grid>
+                            <Grid Style="{StaticResource AppGridStyle}">
+                                <materialDesign:TransitioningContent RunHint="All" OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight, Duration=0:0:0.5}">
+                                    <StackPanel>
+                                        <Button Style="{StaticResource AppIconStyle}">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="Resources/calendar-icon.png" />
+                                            </Button.Background>
+                                        </Button>
+                                        <Label Content="Calendar" Style="{StaticResource AppLabelStyle}"/>
+                                    </StackPanel>
+                                </materialDesign:TransitioningContent>
+                            </Grid>
+                            <Grid Style="{StaticResource AppGridStyle}">
+                                <materialDesign:TransitioningContent RunHint="All" OpeningEffect="{materialDesign:TransitionEffect SlideInFromRight, Duration=0:0:0.6}">
+                                    <StackPanel>
+                                        <Button Style="{StaticResource AppIconStyle}">
+                                            <Button.Background>
+                                                <ImageBrush ImageSource="Resources/calculator-icon.png" />
+                                            </Button.Background>
+                                        </Button>
+                                        <Label Content="Calculator" Style="{StaticResource AppLabelStyle}"/>
+                                    </StackPanel>
+                                </materialDesign:TransitioningContent>
+                            </Grid>
+
+                            <Grid Style="{StaticResource AppStoreGridStyle}">
+                                <Image HorizontalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Center" Source="Resources/threedot.gif" UseLayoutRounding="False" Margin="0" Width="35"/>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:TransitionerSlide>
+            </materialDesign:Transitioner>
+
             <Grid Style="{StaticResource GridBorderStyle}">
                 <Border Style="{StaticResource AppsStackPanelBorderStyle}"/>
             </Grid>

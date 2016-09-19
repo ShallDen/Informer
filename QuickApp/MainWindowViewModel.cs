@@ -34,7 +34,7 @@ namespace QuickApp.ViewModel
         {
             State = new MainWindowState(this);
 
-            State.WindowWidth = 70;
+            State.WindowWidth = 90;
             State.AppGridHeight = 100;
         }
     }

@@ -23,6 +23,8 @@ using System.Drawing;
 using MahApps.Metro.Controls;
 using System.Globalization;
 using QuickApp.ViewModel;
+using System.Windows.Automation.Peers;
+using System.Windows.Automation.Provider;
 
 namespace QuickApp
 {
@@ -136,10 +138,21 @@ namespace QuickApp
                             {
                                 if (this.CurrentWindowState == GlobalWindowState.Closed || this.CurrentWindowState == GlobalWindowState.Undefined)
                                 {
-                                    WindowUtilties.AnimateWindowSize(this, Model.State.WindowWidth, MainWindowsLeftOpened);
-                                    RoutedEventArgs newEventArgs = new RoutedEventArgs(OpenMainWindowEvent);
-                                    RaiseEvent(newEventArgs);
-                                    this._CurrentWindowState = GlobalWindowState.Opened;
+                                    lock (this)
+                                    {
+                                        Console.WriteLine("Opening");
+                                        this._CurrentWindowState = GlobalWindowState.Opened;
+                                        WindowUtilties.AnimateWindowSize(this, Model.State.WindowWidth, MainWindowsLeftOpened);
+                                        RoutedEventArgs newEventArgs = new RoutedEventArgs(OpenMainWindowEvent);
+                                        RaiseEvent(newEventArgs);
+                                        AppsSlide1.Visibility = Visibility.Visible;
+
+                                        ButtonAutomationPeer peer = new ButtonAutomationPeer(MoveAppsSlideFrom0To1);
+                                        IInvokeProvider invokeProv =
+                                          peer.GetPattern(PatternInterface.Invoke)
+                                          as IInvokeProvider;
+                                        invokeProv.Invoke();
+                                    } 
                                 }
                                 break;
                             }
@@ -147,10 +160,21 @@ namespace QuickApp
                             {
                                 if (this.CurrentWindowState == GlobalWindowState.Opened || this.CurrentWindowState == GlobalWindowState.Undefined)
                                 {
-                                    //WindowUtilties.AnimateWindowSize(this, 0, MainWindowsLeftClosed);
-                                    RoutedEventArgs newEventArgs = new RoutedEventArgs(CloseMainWindowEvent);
-                                    RaiseEvent(newEventArgs);
-                                    this._CurrentWindowState = GlobalWindowState.Closed;
+                                    lock (this)
+                                    {
+                                        Console.WriteLine("Closing");
+                                        this._CurrentWindowState = GlobalWindowState.Closed;
+                                        //WindowUtilties.AnimateWindowSize(this, 0, MainWindowsLeftClosed);
+                                        RoutedEventArgs newEventArgs = new RoutedEventArgs(CloseMainWindowEvent);
+                                        RaiseEvent(newEventArgs);
+                                        AppsSlide1.Visibility = Visibility.Hidden;
+
+                                        ButtonAutomationPeer peer = new ButtonAutomationPeer(MoveAppsSlideFrom1To0);
+                                        IInvokeProvider invokeProv =
+                                          peer.GetPattern(PatternInterface.Invoke)
+                                          as IInvokeProvider;
+                                        invokeProv.Invoke();
+                                    }
                                 }
                                 break;
                             }

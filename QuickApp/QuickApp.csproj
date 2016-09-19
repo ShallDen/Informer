@@ -60,6 +60,7 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -169,6 +170,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\threedot.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\rocket.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
