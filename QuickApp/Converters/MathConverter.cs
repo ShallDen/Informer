@@ -35,7 +35,7 @@ namespace QuickApp.Converters
             {
                 if (s != string.Empty)
                 {
-                    if (double.TryParse(s, out tmp))
+                    if (double.TryParse(s, NumberStyles.Number, CultureInfo.InvariantCulture, out tmp))
                     {
                         numbers.Add(tmp);
                     }
@@ -100,7 +100,7 @@ namespace QuickApp.Converters
                     // and that the next token is either the number expected, or it was a ( meaning
                     // that this was called recursively and that the number changed
                     if (numbers.Count > (index + 1) &&
-                        (double.Parse(nextToken) == numbers[index + 1] || nextToken == "("))
+                        (double.Parse(nextToken.Replace(',', '.'), CultureInfo.InvariantCulture) == numbers[index + 1] || nextToken == "("))
                     {
                         switch (token)
                         {

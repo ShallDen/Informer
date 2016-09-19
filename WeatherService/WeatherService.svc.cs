@@ -171,13 +171,14 @@ namespace WeatherService
                     if (item.LastUpdate < currentWeatherResult.LastUpdate.Value)
                     {
                         item.LastUpdate = currentWeatherResult.LastUpdate.Value;
-                        WriteWeatherInfoToDatabase(currentWeather);
-
+                        
                         var needToUpdateClients = clientList.Where(c => c.Key.WeatherRequest.CityId == currentWeatherResult.City.Id).ToList();
                         while (needToUpdateClients.Any())
                         {
                             NotifyClients(currentWeatherResult, needToUpdateClients);
                         }
+
+                        //WriteWeatherInfoToDatabase(currentWeather);
                     }
                 }
             }
