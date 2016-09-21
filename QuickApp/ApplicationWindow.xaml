@@ -1,0 +1,18 @@
+﻿<Window x:Class="QuickApp.ApplicationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuickApp"
+        mc:Ignorable="d"
+        Title="ApplicationWindow" Height="500" Width="700">
+    <Grid>
+        <Button Name="ShowContentButton" Content="Load fisrt application" Margin="10,415,470,0" Click="ShowContentButton_Click" VerticalAlignment="Top"/>
+        <Button Name="ShowContentButton2" Content="Load second application" Margin="250,415,230,0" Click="ShowContentButton2_Click" VerticalAlignment="Top"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="368" Margin="10,40,0,0" VerticalAlignment="Top" Width="615">
+            <ContentControl x:Name="ContentMain"  Width="Auto" Opacity="1" Background="Transparent" Margin="36,28,40,20" />
+        </Border>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Application content:" VerticalAlignment="Top" FontSize="20"/>
+        <CheckBox x:Name="checkBox" Content="CheckBox" HorizontalAlignment="Left" Margin="487,421,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>
