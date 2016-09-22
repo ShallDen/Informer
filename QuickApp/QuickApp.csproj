@@ -71,12 +71,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationWindow.xaml.cs">
+      <DependentUpon>ApplicationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\MarginTopConverter.cs" />
     <Compile Include="Converters\MathConverter.cs" />
     <Compile Include="MainWindowState.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Timers\ATimer.cs" />
     <Compile Include="Timers\MicroTimer.cs" />
+    <Page Include="ApplicationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
