@@ -90,8 +90,8 @@ namespace QuickApp
             Thread monitorMouseThread = new Thread(() => MonitorMouseThread());
             monitorMouseThread.Start();
 
-            var appWindow = new ApplicationWindow();
-            appWindow.Show();
+            var launchWindow = new LaunchWindow();
+            launchWindow.Show();
         }
 
         public void MonitorMouseThread()

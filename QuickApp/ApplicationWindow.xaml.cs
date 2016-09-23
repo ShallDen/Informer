@@ -24,35 +24,5 @@ namespace QuickApp
         {
             InitializeComponent();
         }
-
-        private void ShowContentButton_Click(object sender, RoutedEventArgs e)
-        {
-            UserControl myControl = null;
-            Assembly asm = Assembly.LoadFile(@"C:\Users\dmayasov\Source\Repos\Informer\WeatherApp\bin\Debug\WeatherApp.dll");
-            Type[] tlist = asm.GetTypes();
-            foreach (Type t in tlist)
-            {
-                if (t.Name == "ApplicationControl")
-                {
-                    myControl = Activator.CreateInstance(t) as UserControl;
-                    this.ContentMain.Content = myControl;
-                }
-            }
-        }
-
-        private void ShowContentButton2_Click(object sender, RoutedEventArgs e)
-        {
-            UserControl myControl = null;
-            Assembly asm = Assembly.LoadFile(@"C:\Users\dmayasov\Source\Repos\Informer\CurrencyApp\bin\Debug\CurrencyApp.dll");
-            Type[] tlist = asm.GetTypes();
-            foreach (Type t in tlist)
-            {
-                if (t.Name == "ApplicationControl")
-                {
-                    myControl = Activator.CreateInstance(t) as UserControl;
-                    this.ContentMain.Content = myControl;
-                }
-            }
-        }
     }
 }

@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CurrencyApp"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d" Height="500" Width="700">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -27,8 +26,8 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Label Name="label" Content="TEST" Margin="10,99,10,149" Foreground="#FFFF3B31" FontSize="30"/>
-        <TextBlock Text="Text from second external user control" Margin="17,151,18,93" Foreground="#FFFF3B31" FontSize="20" TextWrapping="Wrap"/>
+        <Label Name="label" Content="TEST" Margin="10,99,10,0" Foreground="#FFFF3B31" FontSize="30" Height="69" VerticalAlignment="Top"/>
+        <TextBlock Text="Text from second external user control" Margin="17,151,18,0" Foreground="#FFFF3B31" FontSize="20" TextWrapping="Wrap" Height="73" VerticalAlignment="Top"/>
         <CheckBox x:Name="checkBox" Content="CheckBox" HorizontalAlignment="Left" Margin="148,76,0,0" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

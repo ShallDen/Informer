@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WeatherApp"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" Height="300" Width="300" >
     <Grid Background="#FFE7FFC3">
         <Button x:Name="button" Content="Test" HorizontalAlignment="Left" Margin="7,33,0,0" VerticalAlignment="Top" Width="97" Click="button_Click" Height="36">
             <Button.Background>
@@ -15,8 +15,8 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Label Name="label" Content="TEST" Margin="10,99,10,149" Foreground="#FF3AA422" FontSize="30"/>
-        <TextBlock Text="Text from first external user control" Margin="17,151,18,93" Foreground="#FF3AA422" FontSize="20" TextWrapping="Wrap"/>
+        <Label Name="label" Content="TEST" Margin="10,99,0,0" Foreground="#FF3AA422" FontSize="30" Height="52" VerticalAlignment="Top" HorizontalAlignment="Left" Width="280"/>
+        <TextBlock Text="Text from first external user control" Margin="10,168,0,0" Foreground="#FF3AA422" FontSize="20" TextWrapping="Wrap" Height="56" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265"/>
         <CheckBox x:Name="checkBox" Content="CheckBox" HorizontalAlignment="Left" Margin="160,69,0,0" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>
