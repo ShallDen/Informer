@@ -21,17 +21,16 @@ using System.ServiceModel;
 namespace WeatherApp
 {
     /// <summary>
-    /// Interaction logic for ApplicationControl.xaml
+    /// Interaction logic for WeatherAppControl.xaml
     /// </summary>
-    public partial class ApplicationControl : UserControl, WeatherServiceCallback
+    public partial class WeatherAppControl : UserControl, WeatherServiceCallback
     {
         private readonly StorageServiceClient storageClient;
         private readonly WeatherServiceClient weatherClient;
         private object lockObj;
         private Guid mGuid;
 
-
-        public ApplicationControl()
+        public WeatherAppControl()
         {
             InitializeComponent();
 
@@ -44,9 +43,15 @@ namespace WeatherApp
             weatherClient = new WeatherServiceClient(context);
 
             Thread thread = new Thread(() => ShowWeather(null));
+            thread.IsBackground = true;
             thread.Start();
 
             //Test();
+        }
+
+        public void StopApplicationControl()
+        {
+            weatherClient.UnRegisterClient(mGuid);
         }
 
         public void OnWeatherReceived(WeatherItem weather)
@@ -145,11 +150,6 @@ namespace WeatherApp
             //var cityListModel = SerializationHelper.DeserializeJsonFromFile<CityListModel>(filePath, new CityListModel());
 
             //var city = cityListModel.cityList.Where(c => c.name == "Moscow").ToList();
-        }
-
-        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
-        {
-            weatherClient.UnRegisterClient(mGuid);
         }
     }
 }

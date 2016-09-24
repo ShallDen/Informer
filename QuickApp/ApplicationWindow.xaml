@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <TextBlock Text="Some panel" FontFamily="Roboto Condensed" Background="#FFA6FF8C" TextAlignment="Center"/>
+            <TextBlock x:Name="highPanel" Text="Some panel" FontFamily="Roboto Condensed" Background="#FFA6FF8C" TextAlignment="Center"/>
         </Grid>
         
         <Grid Grid.Row="1">

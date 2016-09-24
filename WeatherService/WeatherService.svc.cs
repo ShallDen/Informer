@@ -47,7 +47,7 @@ namespace WeatherService
         {
             IWeatherServiceCallback callback = OperationContext.Current.GetCallbackChannel<IWeatherServiceCallback>();
 
-            //---prevent multiple clients adding at the same time---
+            // Prevent multiple clients adding at the same time
             lock (clientsLocker)
             {
                 if (!IsClientRegistered(guid))
@@ -133,8 +133,7 @@ namespace WeatherService
             }
         }
 
-        //---unregister a client by removing its GUID from 
-        // dictionary---
+        // Unregister a client by removing its GUID from dictionary
         public void UnRegisterClient(Guid guid)
         {
             try
@@ -198,16 +197,16 @@ namespace WeatherService
 
         private void SeekWeather()
         {
-            try
+            lock (cityList)
             {
-                lock (cityList)
+                foreach (var item in cityList)
                 {
-                    foreach (var item in cityList)
+                    try
                     {
                         var currentWeather = mWeatherClient.CurrentWeather.GetByCityId(item.CityId, item.UserMetricSystem, item.UserLanguage);
                         var currentWeatherResult = currentWeather.Result;
 
-                        // Continue if it is really new weather update
+                        // Save to DB and notify clients if it is really new weather update
                         if (item.LastUpdate < currentWeatherResult.LastUpdate.Value)
                         {
                             item.LastUpdate = currentWeatherResult.LastUpdate.Value;
@@ -221,11 +220,15 @@ namespace WeatherService
                             WriteWeatherInfoToDatabase(currentWeather);
                         }
                     }
+                    catch (AggregateException ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                    }
                 }
-            }
-            catch (AggregateException ex)
-            {
-                Console.WriteLine(ex.ToString());
             }
         }
 
@@ -234,16 +237,14 @@ namespace WeatherService
             IWeatherServiceCallback currentCallback = null;
             try
             {
-                //---get all the clients in dictionary---
                 // Notify only clients who has cityId same as cityId in weatherResult
                 var query = needToUpdateClients.Select(v => v.Value).ToList();
 
-                //---create the callback action---
+                // Create the callback action
                 Action<IWeatherServiceCallback> action =
                     delegate (IWeatherServiceCallback callback)
                     {
-                        //---callback to pass the seats booked 
-                        // by a client to all other clients---  
+                        // Callback to update UI to all other clients  
                         currentCallback = callback;
                         callback.OnWeatherReceived(weatherResult);
 
@@ -251,7 +252,7 @@ namespace WeatherService
                         needToUpdateClients.Remove(updatedClient);
                     };
 
-                //---for each connected client, invoke the callback--- 
+                // For each connected client, invoke the callback
                 query.ForEach(action);
             }
             catch (TimeoutException ex)

@@ -207,6 +207,12 @@
   <ItemGroup>
     <Resource Include="Resources\package.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Informer.Core\Core.csproj">
+      <Project>{97e2053f-813c-4c64-8692-b6376c6b59d4}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

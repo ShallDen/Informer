@@ -10,8 +10,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Reflection;
+using System.IO;
+using Informer.Core;
 
 namespace QuickApp
 {
@@ -23,44 +24,22 @@ namespace QuickApp
         public LaunchWindow()
         {
             InitializeComponent();
+
+            ApplicationManager.Instance.LoadApplications();
         }
 
-        private void btnCurrencyApp_Click(object sender, RoutedEventArgs e)
+        private void btnApp_Click(object sender, RoutedEventArgs e)
         {
-            var appWindow = new ApplicationWindow();
+            var buttonContent = (sender as Button).Content.ToString();
+            var application = ApplicationManager.Instance.Applications.FirstOrDefault(app => app.AssemblyName == buttonContent);
 
-            UserControl myControl = null;
-            Assembly asm = Assembly.LoadFile(@"F:\Programming\Informer\Informer\CurrencyApp\bin\Debug\CurrencyApp.dll");
-            Type[] tlist = asm.GetTypes();
-            foreach (Type t in tlist)
+            if (application != null)
             {
-                if (t.Name == "ApplicationControl")
-                {
-                    myControl = Activator.CreateInstance(t) as UserControl;
-                    appWindow.ContentMain.Content = myControl;
-                }
+                application.RunApplication();
+
+                var appWindow = new ApplicationWindow(application);
+                appWindow.Show();
             }
-
-            appWindow.Show();
-        }
-
-        private void btnWeatheApp_Click(object sender, RoutedEventArgs e)
-        {
-            var appWindow = new ApplicationWindow();
-
-            UserControl myControl = null;
-            Assembly asm = Assembly.LoadFrom(@"F:\Programming\Informer\Informer\WeatherApp\bin\Debug\WeatherApp.dll");
-            Type[] tlist = asm.GetTypes();
-            foreach (Type t in tlist)
-            {
-                if (t.Name == "ApplicationControl")
-                {
-                    myControl = Activator.CreateInstance(t) as UserControl;
-                    appWindow.ContentMain.Content = myControl;
-                }
-            }
-
-            appWindow.Show();
         }
     }
 }

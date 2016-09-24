@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="LaunchWindow" Height="102.111" Width="311.082">
     <Grid>
-        <Button x:Name="btnCurrencyApp" Content="CurrencyApp" HorizontalAlignment="Left" Margin="27,21,0,0" VerticalAlignment="Top" Width="117" Click="btnCurrencyApp_Click"/>
-        <Button x:Name="btnWeatheApp" Content="WeatherApp" HorizontalAlignment="Left" Margin="158,21,0,0" VerticalAlignment="Top" Width="122" Click="btnWeatheApp_Click"/>
+        <Button x:Name="btnCurrencyApp" Content="CurrencyApp" HorizontalAlignment="Left" Margin="27,21,0,0" VerticalAlignment="Top" Width="117" Click="btnApp_Click"/>
+        <Button x:Name="btnWeatheApp" Content="WeatherApp" HorizontalAlignment="Left" Margin="158,21,0,0" VerticalAlignment="Top" Width="122" Click="btnApp_Click"/>
     </Grid>
 </Window>

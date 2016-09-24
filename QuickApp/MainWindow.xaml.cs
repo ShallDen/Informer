@@ -25,6 +25,7 @@ using System.Globalization;
 using QuickApp.ViewModel;
 using System.Windows.Automation.Peers;
 using System.Windows.Automation.Provider;
+using Informer.Core;
 
 namespace QuickApp
 {
@@ -88,6 +89,7 @@ namespace QuickApp
             this.Left = ScreenWidth;
 
             Thread monitorMouseThread = new Thread(() => MonitorMouseThread());
+            monitorMouseThread.IsBackground = true;
             monitorMouseThread.Start();
 
             var launchWindow = new LaunchWindow();
@@ -316,6 +318,16 @@ namespace QuickApp
             NOSENDCHANGING = 0x0400,
             DEFERERASE = 0x2000,
             ASYNCWINDOWPOS = 0x4000;
+        }
+
+        private void MyMainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            ApplicationManager.Instance.Applications.ForEach(app => app.StopApplication());
+        }
+
+        private void closeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 

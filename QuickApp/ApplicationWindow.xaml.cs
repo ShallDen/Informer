@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Reflection;
+using Informer.Core;
 
 namespace QuickApp
 {
@@ -20,9 +20,15 @@ namespace QuickApp
     /// </summary>
     public partial class ApplicationWindow : Window
     {
-        public ApplicationWindow()
+        public IInfomerApplication InfomerApplication { get; set; }
+
+        public ApplicationWindow(IInfomerApplication app)
         {
             InitializeComponent();
+
+            this.InfomerApplication = app;
+            this.ContentMain.Content = InfomerApplication.Control;
+            this.highPanel.Text = InfomerApplication.FriendlyName;
         }
     }
 }

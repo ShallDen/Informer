@@ -18,7 +18,7 @@
                       BorderThickness="1,0,0,0"
                       Background="#30313d"
                       MinWidth="0"
-                      Title="MainWindow">
+                      Title="MainWindow" Closing="MyMainWindow_Closing">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
@@ -130,6 +130,7 @@
 
         <Grid Grid.Row="0" Style="{StaticResource HeaderGridStyle}">
             <StackPanel>
+                <Button x:Name="closeButton" Content="Close" HorizontalAlignment="Left" Margin="10,32,0,0" VerticalAlignment="Top" Width="66" Click="closeButton_Click"/>
                 <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
                                              PopupMode="Click"
                                              BorderBrush="Transparent"

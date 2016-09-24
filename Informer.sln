@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherApp", "WeatherApp\We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyApp", "CurrencyApp\CurrencyApp.csproj", "{938CE787-23DA-43AC-A9BF-186BC048BED4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Informer.Core\Core.csproj", "{97E2053F-813C-4C64-8692-B6376C6B59D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{938CE787-23DA-43AC-A9BF-186BC048BED4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{938CE787-23DA-43AC-A9BF-186BC048BED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{938CE787-23DA-43AC-A9BF-186BC048BED4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97E2053F-813C-4C64-8692-B6376C6B59D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97E2053F-813C-4C64-8692-B6376C6B59D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97E2053F-813C-4C64-8692-B6376C6B59D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97E2053F-813C-4C64-8692-B6376C6B59D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

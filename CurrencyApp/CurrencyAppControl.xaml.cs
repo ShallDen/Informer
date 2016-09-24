@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace CurrencyApp
 {
     /// <summary>
-    /// Interaction logic for ApplicationControl.xaml
+    /// Interaction logic for CurrencyAppControl.xaml
     /// </summary>
-    public partial class ApplicationControl : UserControl
+    public partial class CurrencyAppControl : UserControl
     {
-        public ApplicationControl()
+        public CurrencyAppControl()
         {
             InitializeComponent();
         }
