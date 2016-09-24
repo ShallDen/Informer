@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherService", "WeatherService\WeatherService.csproj", "{D21578DD-57B6-42AE-8937-14508F714C01}"
 EndProject
@@ -24,6 +24,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserApplications", "UserApplications", "{4CFC7A8A-6B2E-466F-AF3E-F848EDD078A8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherApp", "WeatherApp\WeatherApp.csproj", "{C58D3CCD-A0AE-4EDD-BEE2-59EC44079F62}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CD28A84E-9FFC-49A3-AB97-37FE667EAC93} = {CD28A84E-9FFC-49A3-AB97-37FE667EAC93}
+		{D21578DD-57B6-42AE-8937-14508F714C01} = {D21578DD-57B6-42AE-8937-14508F714C01}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyApp", "CurrencyApp\CurrencyApp.csproj", "{938CE787-23DA-43AC-A9BF-186BC048BED4}"
 EndProject

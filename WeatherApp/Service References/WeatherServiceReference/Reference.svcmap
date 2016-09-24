@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="feae6d20-8e4c-4e93-854f-1a31bb843ca8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/WeatherService/WeatherService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="WeatherService.disco" MetadataType="Disco" ID="d4ef1073-2a9b-45f5-9ec8-6fd6dd182a8f" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?disco" />
+    <MetadataFile FileName="WeatherService.wsdl" MetadataType="Wsdl" ID="e25a4923-d33e-4c7c-906a-4195d7ecec5e" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?wsdl" />
+    <MetadataFile FileName="WeatherService.xsd" MetadataType="Schema" ID="afbc4996-5535-40c6-9694-33c1b83ee5b3" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?xsd=xsd0" />
+    <MetadataFile FileName="WeatherService1.xsd" MetadataType="Schema" ID="a219d18b-07a4-45ff-8b9e-39a7bdf38e0f" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?xsd=xsd1" />
+    <MetadataFile FileName="WeatherService2.xsd" MetadataType="Schema" ID="c7ff5924-a475-42e4-9a84-46a590667174" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?xsd=xsd2" />
+    <MetadataFile FileName="WeatherService1.wsdl" MetadataType="Wsdl" ID="f17d6156-df7d-4676-8193-1710f7a82d6a" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?wsdl=wsdl0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

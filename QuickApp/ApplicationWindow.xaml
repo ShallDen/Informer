@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <TextBlock Text="Some panel" FontFamily="Roboto Condensed"/>
+            <TextBlock Text="Some panel" FontFamily="Roboto Condensed" Background="#FFA6FF8C" TextAlignment="Center"/>
         </Grid>
         
         <Grid Grid.Row="1">
@@ -23,7 +23,7 @@
         </Grid>
 
         <Grid Grid.Row="2">
-            <TextBlock Text="Some another panel" FontFamily="Roboto Condensed"/>
+            <TextBlock Text="Some another panel" FontFamily="Roboto Condensed" Background="#FFA6FF8C" TextAlignment="Center"/>
         </Grid>
     </Grid>
 </Window>

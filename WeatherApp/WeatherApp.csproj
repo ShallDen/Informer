@@ -30,10 +30,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.1.0.657, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.1.0.657\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenWeatherMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,12 +59,92 @@
       <DependentUpon>ApplicationControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\StorageServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WeatherServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="ApplicationControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OpenWeatherMap.Net45\OpenWeatherMap.Net45.csproj">
+      <Project>{2b0e4bad-7158-4528-ad34-59cc2c109ee0}</Project>
+      <Name>OpenWeatherMap.Net45</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\OpenWeatherMap.CityModel.datasource" />
+    <None Include="Properties\DataSources\OpenWeatherMap.WeatherItem.datasource" />
+    <None Include="Service References\StorageServiceReference\StorageService.wsdl" />
+    <None Include="Service References\StorageServiceReference\StorageService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\StorageServiceReference\StorageService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\StorageServiceReference\StorageService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WeatherServiceReference\WeatherService.wsdl" />
+    <None Include="Service References\WeatherServiceReference\WeatherService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WeatherServiceReference\WeatherService1.wsdl" />
+    <None Include="Service References\WeatherServiceReference\WeatherService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WeatherServiceReference\WeatherService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\StorageServiceReference\" />
+    <WCFMetadataStorage Include="Service References\WeatherServiceReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\StorageServiceReference\StorageService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\StorageServiceReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\StorageServiceReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\StorageServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WeatherServiceReference\WeatherService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WeatherServiceReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WeatherServiceReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WeatherServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

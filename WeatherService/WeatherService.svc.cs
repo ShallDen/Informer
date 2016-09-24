@@ -52,7 +52,25 @@ namespace WeatherService
             {
                 if (!IsClientRegistered(guid))
                 {
-                    clientList.Add(new Client { Id = guid, WeatherRequest = currentWeatherRequest }, callback);
+                    var client = new Client { Id = guid, WeatherRequest = currentWeatherRequest };
+                    clientList.Add(client, callback);
+
+                    CurrentWeatherResponse weatherResult = null;
+                    try
+                    {
+                        // Get new weather item for one client who changed cityId
+                        var weather = GetWeatherFromWeb(currentWeatherRequest.CityId, currentWeatherRequest.UserMetricSystem, currentWeatherRequest.UserLanguage);
+                        weatherResult = weather.Result;
+
+                        WriteWeatherInfoToDatabase(weather);
+                    }
+                    catch (AggregateException ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                    }
+
+                    // Notify client to update UI
+                    NotifyClient(client, weatherResult);
                 }
                 else
                 {
@@ -71,9 +89,19 @@ namespace WeatherService
                         // Check if it is required to remove old cityId form cityList
                         CheckCityListForCleanUp(clientCityId);
 
-                        // Get new weather item for one client who changed cityId
-                        var weather = GetWeatherFromWeb(currentWeatherRequest.CityId, currentWeatherRequest.UserMetricSystem, currentWeatherRequest.UserLanguage);
-                        var weatherResult = weather.Result;
+                        CurrentWeatherResponse weatherResult = null;
+                        try
+                        {
+                            // Get new weather item for one client who changed cityId
+                            var weather = GetWeatherFromWeb(currentWeatherRequest.CityId, currentWeatherRequest.UserMetricSystem, currentWeatherRequest.UserLanguage);
+                            weatherResult = weather.Result;
+
+                            WriteWeatherInfoToDatabase(weather);
+                        }
+                        catch (AggregateException ex)
+                        {
+                            Console.WriteLine(ex.ToString());
+                        }
 
                         // Notify client to update UI
                         NotifyClient(client, weatherResult);
@@ -109,15 +137,25 @@ namespace WeatherService
         // dictionary---
         public void UnRegisterClient(Guid guid)
         {
-            var query = from c in clientList.Keys
-                        where c.Id == guid
-                        select c;
+            try
+            {
+                var query = from c in clientList.Keys
+                            where c.Id == guid
+                            select c;
 
-            //get city for cleanup check
-            var cityId = query.First().WeatherRequest.CityId;
-            clientList.Remove(query.First());
+                if (query != null)
+                { 
+                    //get city for cleanup check
+                    var cityId = query.First().WeatherRequest.CityId;
+                    clientList.Remove(query.First());
 
-            CheckCityListForCleanUp(cityId);
+                    CheckCityListForCleanUp(cityId);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         // Check if we need to remove city which isn't used by clients
@@ -160,27 +198,34 @@ namespace WeatherService
 
         private void SeekWeather()
         {
-            lock (cityList)
+            try
             {
-                foreach (var item in cityList)
+                lock (cityList)
                 {
-                    var currentWeather = mWeatherClient.CurrentWeather.GetByCityId(item.CityId, item.UserMetricSystem, item.UserLanguage);
-                    var currentWeatherResult = currentWeather.Result;
-
-                    // Continue if it is really new weather update
-                    if (item.LastUpdate < currentWeatherResult.LastUpdate.Value)
+                    foreach (var item in cityList)
                     {
-                        item.LastUpdate = currentWeatherResult.LastUpdate.Value;
-                        
-                        var needToUpdateClients = clientList.Where(c => c.Key.WeatherRequest.CityId == currentWeatherResult.City.Id).ToList();
-                        while (needToUpdateClients.Any())
-                        {
-                            NotifyClients(currentWeatherResult, needToUpdateClients);
-                        }
+                        var currentWeather = mWeatherClient.CurrentWeather.GetByCityId(item.CityId, item.UserMetricSystem, item.UserLanguage);
+                        var currentWeatherResult = currentWeather.Result;
 
-                        //WriteWeatherInfoToDatabase(currentWeather);
+                        // Continue if it is really new weather update
+                        if (item.LastUpdate < currentWeatherResult.LastUpdate.Value)
+                        {
+                            item.LastUpdate = currentWeatherResult.LastUpdate.Value;
+
+                            var needToUpdateClients = clientList.Where(c => c.Key.WeatherRequest.CityId == currentWeatherResult.City.Id).ToList();
+                            while (needToUpdateClients.Any())
+                            {
+                                NotifyClients(currentWeatherResult, needToUpdateClients);
+                            }
+
+                            WriteWeatherInfoToDatabase(currentWeather);
+                        }
                     }
                 }
+            }
+            catch (AggregateException ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
 
@@ -232,6 +277,23 @@ namespace WeatherService
             try
             {
                 var clientForUpdate = clientList.Where(c => c.Key.Id == client.Key.Id).Select(v => v.Value).SingleOrDefault();
+
+                if (clientForUpdate != null)
+                {
+                    clientForUpdate.OnWeatherReceived(weatherResult);
+                }
+            }
+            catch (CommunicationObjectAbortedException ex)
+            {
+                // clientList.Clear();
+            }
+        }
+
+        public void NotifyClient(Client client, WeatherItem weatherResult)
+        {
+            try
+            {
+                var clientForUpdate = clientList.Where(c => c.Key.Id == client.Id).Select(v => v.Value).SingleOrDefault();
 
                 if (clientForUpdate != null)
                 {

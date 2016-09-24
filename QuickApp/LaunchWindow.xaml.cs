@@ -49,7 +49,7 @@ namespace QuickApp
             var appWindow = new ApplicationWindow();
 
             UserControl myControl = null;
-            Assembly asm = Assembly.LoadFile(@"F:\Programming\Informer\Informer\WeatherApp\bin\Debug\WeatherApp.dll");
+            Assembly asm = Assembly.LoadFrom(@"F:\Programming\Informer\Informer\WeatherApp\bin\Debug\WeatherApp.dll");
             Type[] tlist = asm.GetTypes();
             foreach (Type t in tlist)
             {
