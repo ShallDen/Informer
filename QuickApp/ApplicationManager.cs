@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Informer.Core;
 
-namespace Informer.Core
+namespace QuickApp
 {
     public class ApplicationManager
     {
         private static ApplicationManager mInstance;
         private List<IInfomerApplication> mApplications;
+        private List<ApplicationWindow> mAppWindows;
 
         public static ApplicationManager Instance
         {
@@ -19,6 +21,12 @@ namespace Informer.Core
         {
             get { return mApplications; }
             set { mApplications = value; }
+        }
+
+        public List<ApplicationWindow> AppWindows
+        {
+            get { return mAppWindows ?? (mAppWindows = new List<ApplicationWindow>()); }
+            set { mAppWindows = value; }
         }
 
         public ApplicationManager()

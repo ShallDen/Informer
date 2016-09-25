@@ -30,5 +30,13 @@ namespace QuickApp
             this.ContentMain.Content = InfomerApplication.Control;
             this.highPanel.Text = InfomerApplication.FriendlyName;
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (ApplicationManager.Instance.AppWindows.Contains(this))
+            {
+                ApplicationManager.Instance.AppWindows.Remove(this);
+            }
+        }
     }
 }

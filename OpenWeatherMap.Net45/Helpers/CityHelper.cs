@@ -38,7 +38,7 @@ namespace OpenWeatherMap
                 }
                 return cityModels;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new List<CityModel>();
             }

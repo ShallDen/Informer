@@ -24,8 +24,6 @@ namespace QuickApp
         public LaunchWindow()
         {
             InitializeComponent();
-
-            ApplicationManager.Instance.LoadApplications();
         }
 
         private void btnApp_Click(object sender, RoutedEventArgs e)
@@ -33,12 +31,28 @@ namespace QuickApp
             var buttonContent = (sender as Button).Content.ToString();
             var application = ApplicationManager.Instance.Applications.FirstOrDefault(app => app.AssemblyName == buttonContent);
 
-            if (application != null)
+            if (application == null)
             {
+                return;
+            }
+
+            var window = ApplicationManager.Instance.AppWindows.FirstOrDefault(c => c.InfomerApplication == application);
+
+            // Check if application already opened
+            if (window == null)
+            {
+                // Open new window
                 application.RunApplication();
 
                 var appWindow = new ApplicationWindow(application);
                 appWindow.Show();
+
+                ApplicationManager.Instance.AppWindows.Add(appWindow);
+            }
+            else
+            {
+                // Activate existing window
+                window.Activate();
             }
         }
     }

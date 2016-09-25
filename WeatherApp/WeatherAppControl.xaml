@@ -21,7 +21,7 @@
         <Label x:Name="txtCity" HorizontalAlignment="Left" Height="45" Margin="7,13,0,0" VerticalAlignment="Top" Width="482" FontFamily="Digital-7" FontSize="30"/>
         <TextBox x:Name="txtTemperature" HorizontalAlignment="Left" Height="43" Margin="7,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="124" FontFamily="Digital-7" FontSize="30"/>
         <TextBox x:Name="txtIcon" HorizontalAlignment="Left" Height="43" Margin="144,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="345" FontFamily="Digital-7" FontSize="30"/>
-        <TextBox x:Name="txtPressure" HorizontalAlignment="Left" Height="41" Margin="7,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" FontFamily="Digital-7" FontSize="30"/>
+        <TextBox x:Name="txtPressure" HorizontalAlignment="Left" Height="41" Margin="7,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="124" FontFamily="Digital-7" FontSize="30"/>
         <TextBox x:Name="txtCityInput" HorizontalAlignment="Left" Height="23" Margin="7,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="339" FontFamily="Digital-7" FontSize="16"/>
         <Button x:Name="btnGetWeather" Content="Get weather" HorizontalAlignment="Left" Margin="365,217,0,0" VerticalAlignment="Top" Width="124" Height="23" FontFamily="Digital-7" Click="btnGetWeather_Click"/>
         <Button x:Name="btnGetNewWeather" Content="Get new weather" HorizontalAlignment="Left" Margin="365,245,0,0" VerticalAlignment="Top" Width="124" Height="23" FontFamily="Digital-7" Click="btnGetNewWeather_Click"/>

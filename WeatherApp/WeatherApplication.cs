@@ -35,6 +35,7 @@ namespace WeatherApp
             get { return image; }
             set { image = value; }
         }
+
         public string AssemblyName
         {
             get { return assemblyName; }

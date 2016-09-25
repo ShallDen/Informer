@@ -97,7 +97,7 @@ namespace WeatherApp
             {
                 if (weatherItem != null)
                 {
-                    this.txtCity.Text = weatherItem.City.Name;
+                    this.txtCity.Content = weatherItem.City.Name;
                     this.txtTemperature.Text = weatherItem.Temperature.Value.ToString() + @" °C";
                     this.txtIcon.Text = weatherItem.Weather.Value;
                     this.txtPressure.Text = weatherItem.Pressure.Value.ToString() + " hPa";

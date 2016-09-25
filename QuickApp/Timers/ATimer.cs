@@ -44,13 +44,13 @@ namespace QuickApp
 
         private ElapsedTimer1Delegate _elapsedTimer1Handler;
 
-        private ElapsedTimer2Delegate _elapsedTimer2Handler;
+        //private ElapsedTimer2Delegate _elapsedTimer2Handler;
 
-        private ElapsedTimer3Delegate _elapsedTimer3Handler;
+        //private ElapsedTimer3Delegate _elapsedTimer3Handler;
 
         private ElapsedTimerDelegate _elapsedTimerHandler;
 
-        private bool _enabled;
+        //private bool _enabled;
 
         public ATimer(int timerType, int intervalMS, ElapsedTimerDelegate callback)
         {
@@ -143,7 +143,7 @@ namespace QuickApp
                 mHandler = new TimerEventHandler(Timer3Handler);
                 mTimerId = timeSetEvent(_interval, 0, mHandler, IntPtr.Zero, EVENT_TYPE);
                 mTestStart = DateTime.Now;
-                mTestTick = 0;
+               // mTestTick = 0;
             }
         }
 
@@ -171,7 +171,7 @@ namespace QuickApp
 
         private int mTimerId;
         private TimerEventHandler mHandler;
-        private int mTestTick;
+        //private int mTestTick;
         private DateTime mTestStart;
 
         // P/Invoke declarations

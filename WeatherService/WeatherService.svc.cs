@@ -257,6 +257,7 @@ namespace WeatherService
             }
             catch (TimeoutException ex)
             {
+                Console.WriteLine(ex.ToString());
                 var clientForDelete = clientList.FirstOrDefault(c => c.Value == currentCallback);
                 clientList.Remove(clientForDelete.Key);
 
@@ -265,6 +266,7 @@ namespace WeatherService
             }
             catch (CommunicationObjectAbortedException ex)
             {
+                Console.WriteLine(ex.ToString());
                 var clientForDelete = clientList.FirstOrDefault(c => c.Value == currentCallback);
                 clientList.Remove(clientForDelete.Key);
 
@@ -286,6 +288,7 @@ namespace WeatherService
             }
             catch (CommunicationObjectAbortedException ex)
             {
+                Console.WriteLine(ex.ToString());
                 // clientList.Clear();
             }
         }
@@ -303,6 +306,7 @@ namespace WeatherService
             }
             catch (CommunicationObjectAbortedException ex)
             {
+                Console.WriteLine(ex.ToString());
                 // clientList.Clear();
             }
         }

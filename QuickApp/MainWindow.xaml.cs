@@ -92,6 +92,8 @@ namespace QuickApp
             monitorMouseThread.IsBackground = true;
             monitorMouseThread.Start();
 
+            ApplicationManager.Instance.LoadApplications();
+
             var launchWindow = new LaunchWindow();
             launchWindow.Show();
         }
@@ -197,6 +199,7 @@ namespace QuickApp
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.ToString());
                 }
             }
         }
