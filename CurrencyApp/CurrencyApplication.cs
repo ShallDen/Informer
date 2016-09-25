@@ -12,51 +12,51 @@ namespace CurrencyApp
 {
     public class CurrencyApplication : IInfomerApplication
     {
-        private CurrencyAppControl control;
-        private string path;
-        private string assemblyName;
-        private string friendlyName;
-        private Image image;
+        private CurrencyAppControl mControl;
+        private string mPath;
+        private string mAssemblyName;
+        private string mFriendlyName;
+        private Image mImage;
 
         public CurrencyApplication()
         {
-            path = string.Empty;
-            assemblyName = System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Locati‌​on);
-            friendlyName = "Currency application :)";
+            mPath = Assembly.GetExecutingAssembly().Locati‌​on;
+            mAssemblyName = System.IO.Path.GetFileNameWithoutExtension(mPath);
+            mFriendlyName = "Currency application :)";
         }
 
         public UserControl Control
         {
-            get { return control;}
-            set { control = (CurrencyAppControl)value; }
+            get { return mControl;}
+            set { mControl = (CurrencyAppControl)value; }
         }
         public Image Image
         {
-            get { return image; }
-            set { image = value; }
+            get { return mImage; }
+            set { mImage = value; }
         }
 
         public string AssemblyName
         {
-            get { return assemblyName; }
-            set { assemblyName = value; }
+            get { return mAssemblyName; }
+            set { mAssemblyName = value; }
         }
 
         public string FriendlyName
         {
-            get { return friendlyName; }
-            set { friendlyName = value; }
+            get { return mFriendlyName; }
+            set { mFriendlyName = value; }
         }
 
         public string Path
         {
-            get { return path; }
-            set { path = value; }
+            get { return mPath; }
+            set { mPath = value; }
         }
 
         public void RunApplication()
         {
-            control = new CurrencyAppControl();
+            mControl = new CurrencyAppControl();
         }
 
         public void StopApplication()
