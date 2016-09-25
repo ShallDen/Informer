@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using Informer.Core;
 using System.Reflection;
+using WeatherApp.Properties;
+using Informer.Utils;
 
 namespace WeatherApp
 {
@@ -15,13 +17,14 @@ namespace WeatherApp
         private string mPath;
         private string mAssemblyName;
         private string mFriendlyName;
-        private Image mImage;
+        private byte[] mImage;
 
         public WeatherApplication()
         {
             mPath = Assembly.GetExecutingAssembly().Locati‌​on;
             mAssemblyName = System.IO.Path.GetFileNameWithoutExtension(mPath);
             mFriendlyName = "Weather application :)";
+            mImage = ImageHelper.ImageToByteArray(Resources.weather_icon_png_16);
         }
 
         public UserControl Control
@@ -30,7 +33,7 @@ namespace WeatherApp
             set { mControl = (WeatherAppControl)value; }
         }
 
-        public Image Image
+        public byte[] Image
         {
             get { return mImage; }
             set { mImage = value; }

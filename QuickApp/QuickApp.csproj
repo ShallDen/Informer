@@ -197,9 +197,6 @@
     <Resource Include="Resources\profile.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Twitter-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\home-icon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +210,13 @@
       <Project>{97e2053f-813c-4c64-8692-b6376c6b59d4}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Informer.Utils\Utils.csproj">
+      <Project>{ade21a0c-4795-4e38-8cd6-4f9612c6c3a1}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Twitter-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

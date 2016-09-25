@@ -8,7 +8,7 @@ namespace Informer.Core
         string Path { get; set; }
         string FriendlyName { get; set; }
         string AssemblyName { get; set; }
-        Image Image { get; set; }
+        byte[] Image { get; set; }
 
         void RunApplication();
         void StopApplication();

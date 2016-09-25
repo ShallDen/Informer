@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Informer.Core;
+using System.Drawing;
+using System.IO;
+using Informer.Utils;
 
 namespace QuickApp
 {
@@ -29,6 +32,9 @@ namespace QuickApp
             this.InfomerApplication = app;
             this.ContentMain.Content = InfomerApplication.Control;
             this.highPanel.Text = InfomerApplication.FriendlyName;
+
+            this.Icon = ImageHelper.ToImage(InfomerApplication.Image);
+            this.image.Source = ImageHelper.ToImage(InfomerApplication.Image);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

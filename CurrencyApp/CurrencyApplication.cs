@@ -7,6 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Reflection;
 using Informer.Core;
+using CurrencyApp.Properties;
+using Informer.Utils;
 
 namespace CurrencyApp
 {
@@ -16,13 +18,14 @@ namespace CurrencyApp
         private string mPath;
         private string mAssemblyName;
         private string mFriendlyName;
-        private Image mImage;
+        private byte[] mImage;
 
         public CurrencyApplication()
         {
             mPath = Assembly.GetExecutingAssembly().Locati‌​on;
             mAssemblyName = System.IO.Path.GetFileNameWithoutExtension(mPath);
             mFriendlyName = "Currency application :)";
+            mImage = ImageHelper.ImageToByteArray(Resources.currency_icon);
         }
 
         public UserControl Control
@@ -30,7 +33,7 @@ namespace CurrencyApp
             get { return mControl;}
             set { mControl = (CurrencyAppControl)value; }
         }
-        public Image Image
+        public byte[] Image
         {
             get { return mImage; }
             set { mImage = value; }
