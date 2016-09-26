@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherService", "WeatherService\WeatherService.csproj", "{D21578DD-57B6-42AE-8937-14508F714C01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherService", "Services\WeatherService\WeatherService.csproj", "{D21578DD-57B6-42AE-8937-14508F714C01}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Run", "Run\Run.csproj", "{F1DC1725-0A77-401A-BBA0-A3F664397A28}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeatherMap.Net45", "Ope
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "Informer.DataAccess\DataAccess.csproj", "{C7823350-985E-4542-BEA6-F63E0B67E151}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageService", "StorageService\StorageService.csproj", "{CD28A84E-9FFC-49A3-AB97-37FE667EAC93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StorageService", "Services\StorageService\StorageService.csproj", "{CD28A84E-9FFC-49A3-AB97-37FE667EAC93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Informer.Utils\Utils.csproj", "{ADE21A0C-4795-4E38-8CD6-4F9612C6C3A1}"
 EndProject
@@ -23,13 +23,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickApp", "QuickApp\QuickA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UserApplications", "UserApplications", "{4CFC7A8A-6B2E-466F-AF3E-F848EDD078A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherApp", "WeatherApp\WeatherApp.csproj", "{C58D3CCD-A0AE-4EDD-BEE2-59EC44079F62}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherApp", "UserApplications\WeatherApp\WeatherApp.csproj", "{C58D3CCD-A0AE-4EDD-BEE2-59EC44079F62}"
 	ProjectSection(ProjectDependencies) = postProject
 		{CD28A84E-9FFC-49A3-AB97-37FE667EAC93} = {CD28A84E-9FFC-49A3-AB97-37FE667EAC93}
 		{D21578DD-57B6-42AE-8937-14508F714C01} = {D21578DD-57B6-42AE-8937-14508F714C01}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyApp", "CurrencyApp\CurrencyApp.csproj", "{938CE787-23DA-43AC-A9BF-186BC048BED4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyApp", "UserApplications\CurrencyApp\CurrencyApp.csproj", "{938CE787-23DA-43AC-A9BF-186BC048BED4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Informer.Core\Core.csproj", "{97E2053F-813C-4C64-8692-B6376C6B59D4}"
 EndProject

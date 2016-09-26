@@ -94,15 +94,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Informer.DataAccess\DataAccess.csproj">
+    <ProjectReference Include="..\..\Informer.DataAccess\DataAccess.csproj">
       <Project>{c7823350-985e-4542-bea6-f63e0b67e151}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Informer.Utils\Utils.csproj">
+    <ProjectReference Include="..\..\Informer.Utils\Utils.csproj">
       <Project>{ade21a0c-4795-4e38-8cd6-4f9612c6c3a1}</Project>
       <Name>Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OpenWeatherMap.Net45\OpenWeatherMap.Net45.csproj">
+    <ProjectReference Include="..\..\OpenWeatherMap.Net45\OpenWeatherMap.Net45.csproj">
       <Project>{2b0e4bad-7158-4528-ad34-59cc2c109ee0}</Project>
       <Name>OpenWeatherMap.Net45</Name>
     </ProjectReference>

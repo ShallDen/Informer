@@ -9,14 +9,15 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WeatherApp</RootNamespace>
     <AssemblyName>WeatherApp</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\QuickApp\bin\Debug\Modules\WeatherApp\</OutputPath>
+    <OutputPath>..\..\QuickApp\bin\Debug\Modules\WeatherApp\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -30,14 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
+    <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.1.0.657, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignThemes.2.1.0.657\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+      <HintPath>..\..\packages\MaterialDesignThemes.2.1.0.657\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="OpenWeatherMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -83,15 +85,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Informer.Core\Core.csproj">
+    <ProjectReference Include="..\..\Informer.Core\Core.csproj">
       <Project>{97e2053f-813c-4c64-8692-b6376c6b59d4}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Informer.Utils\Utils.csproj">
+    <ProjectReference Include="..\..\Informer.Utils\Utils.csproj">
       <Project>{ade21a0c-4795-4e38-8cd6-4f9612c6c3a1}</Project>
       <Name>Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OpenWeatherMap.Net45\OpenWeatherMap.Net45.csproj">
+    <ProjectReference Include="..\..\OpenWeatherMap.Net45\OpenWeatherMap.Net45.csproj">
       <Project>{2b0e4bad-7158-4528-ad34-59cc2c109ee0}</Project>
       <Name>OpenWeatherMap.Net45</Name>
     </ProjectReference>
@@ -103,7 +105,9 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\OpenWeatherMap.CityModel.datasource" />
+    <None Include="Properties\DataSources\OpenWeatherMap.CityModel2.datasource" />
     <None Include="Properties\DataSources\OpenWeatherMap.WeatherItem.datasource" />
+    <None Include="Properties\DataSources\OpenWeatherMap.WeatherItem2.datasource" />
     <None Include="Service References\StorageServiceReference\StorageService.wsdl" />
     <None Include="Service References\StorageServiceReference\StorageService.xsd">
       <SubType>Designer</SubType>
