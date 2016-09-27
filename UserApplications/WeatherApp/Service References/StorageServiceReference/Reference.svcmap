@@ -22,11 +22,11 @@
     <MetadataSource Address="http://localhost/StorageService/StorageService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="StorageService.xsd" MetadataType="Schema" ID="4277983c-7dd0-4823-9b38-413b05be6a51" SourceId="1" SourceUrl="http://shaiiden/StorageService/StorageService.svc?xsd=xsd0" />
-    <MetadataFile FileName="StorageService.disco" MetadataType="Disco" ID="8ccf246e-a76a-4ffe-bae5-f1e32ebf8d8e" SourceId="1" SourceUrl="http://shaiiden/StorageService/StorageService.svc?disco" />
-    <MetadataFile FileName="StorageService.wsdl" MetadataType="Wsdl" ID="0464e918-c045-4210-a3d3-5486344a6389" SourceId="1" SourceUrl="http://shaiiden/StorageService/StorageService.svc?wsdl" />
-    <MetadataFile FileName="StorageService1.xsd" MetadataType="Schema" ID="ea234111-b3cd-4661-9d9c-47e5a1331af6" SourceId="1" SourceUrl="http://shaiiden/StorageService/StorageService.svc?xsd=xsd2" />
-    <MetadataFile FileName="StorageService2.xsd" MetadataType="Schema" ID="f6931aed-bb46-4e27-abc4-7f682a736cae" SourceId="1" SourceUrl="http://shaiiden/StorageService/StorageService.svc?xsd=xsd1" />
+    <MetadataFile FileName="StorageService3.xsd" MetadataType="Schema" ID="edb8d085-4ed7-422d-8444-0ba8463e4fd3" SourceId="1" SourceUrl="http://n103987.merann.ru/StorageService/StorageService.svc?xsd=xsd2" />
+    <MetadataFile FileName="StorageService1.disco" MetadataType="Disco" ID="7c7b05e8-ffe5-435a-b84d-e6c103a01609" SourceId="1" SourceUrl="http://n103987.merann.ru/StorageService/StorageService.svc?disco" />
+    <MetadataFile FileName="StorageService31.xsd" MetadataType="Schema" ID="27a81b68-0e0a-467a-8b27-5b07cdec62ec" SourceId="1" SourceUrl="http://n103987.merann.ru/StorageService/StorageService.svc?xsd=xsd1" />
+    <MetadataFile FileName="StorageService32.xsd" MetadataType="Schema" ID="e9c77aef-aa87-4399-84ce-29cff89385af" SourceId="1" SourceUrl="http://n103987.merann.ru/StorageService/StorageService.svc?xsd=xsd0" />
+    <MetadataFile FileName="StorageService1.wsdl" MetadataType="Wsdl" ID="d1777bc2-8262-40a6-a693-5f4a07a55e6c" SourceId="1" SourceUrl="http://n103987.merann.ru/StorageService/StorageService.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

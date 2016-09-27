@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using OpenWeatherMap;
+using SqlProviderServices = System.Data.Entity.SqlServer.SqlProviderServices;
 
 namespace Informer.DataAccess
 {

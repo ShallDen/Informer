@@ -22,12 +22,12 @@
     <MetadataSource Address="http://localhost/WeatherService/WeatherService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="WeatherService.disco" MetadataType="Disco" ID="d4ef1073-2a9b-45f5-9ec8-6fd6dd182a8f" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?disco" />
-    <MetadataFile FileName="WeatherService.wsdl" MetadataType="Wsdl" ID="e25a4923-d33e-4c7c-906a-4195d7ecec5e" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?wsdl" />
-    <MetadataFile FileName="WeatherService.xsd" MetadataType="Schema" ID="afbc4996-5535-40c6-9694-33c1b83ee5b3" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?xsd=xsd0" />
-    <MetadataFile FileName="WeatherService1.xsd" MetadataType="Schema" ID="a219d18b-07a4-45ff-8b9e-39a7bdf38e0f" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?xsd=xsd1" />
-    <MetadataFile FileName="WeatherService2.xsd" MetadataType="Schema" ID="c7ff5924-a475-42e4-9a84-46a590667174" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?xsd=xsd2" />
-    <MetadataFile FileName="WeatherService1.wsdl" MetadataType="Wsdl" ID="f17d6156-df7d-4676-8193-1710f7a82d6a" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="WeatherService2.wsdl" MetadataType="Wsdl" ID="011a9e8d-a2ab-4118-9d48-b37efb6607f9" SourceId="1" SourceUrl="http://n103987.merann.ru/WeatherService/WeatherService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="WeatherService1.disco" MetadataType="Disco" ID="3b1b55e1-f336-4a34-9f7f-acdef5669ff6" SourceId="1" SourceUrl="http://n103987.merann.ru/WeatherService/WeatherService.svc?disco" />
+    <MetadataFile FileName="WeatherService3.xsd" MetadataType="Schema" ID="98d7bf84-2df7-4894-a321-d164fea3d1c3" SourceId="1" SourceUrl="http://n103987.merann.ru/WeatherService/WeatherService.svc?xsd=xsd0" />
+    <MetadataFile FileName="WeatherService21.wsdl" MetadataType="Wsdl" ID="d786ba00-4a78-4328-aa8e-87033db93988" SourceId="1" SourceUrl="http://n103987.merann.ru/WeatherService/WeatherService.svc?wsdl" />
+    <MetadataFile FileName="WeatherService31.xsd" MetadataType="Schema" ID="34e72ae4-8b79-467d-a747-729e2f2dd675" SourceId="1" SourceUrl="http://n103987.merann.ru/WeatherService/WeatherService.svc?xsd=xsd1" />
+    <MetadataFile FileName="WeatherService32.xsd" MetadataType="Schema" ID="4fb67abb-0a7f-4738-a686-ad44807282ec" SourceId="1" SourceUrl="http://n103987.merann.ru/WeatherService/WeatherService.svc?xsd=xsd2" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

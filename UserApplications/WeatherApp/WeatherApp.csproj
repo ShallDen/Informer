@@ -101,40 +101,39 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\OpenWeatherMap.CityModel.datasource" />
     <None Include="Properties\DataSources\OpenWeatherMap.CityModel2.datasource" />
     <None Include="Properties\DataSources\OpenWeatherMap.WeatherItem.datasource" />
     <None Include="Properties\DataSources\OpenWeatherMap.WeatherItem2.datasource" />
-    <None Include="Service References\StorageServiceReference\StorageService.wsdl" />
-    <None Include="Service References\StorageServiceReference\StorageService.xsd">
+    <None Include="Service References\StorageServiceReference\StorageService1.wsdl" />
+    <None Include="Service References\StorageServiceReference\StorageService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\StorageServiceReference\StorageService1.xsd">
+    <None Include="Service References\StorageServiceReference\StorageService31.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\StorageServiceReference\StorageService2.xsd">
+    <None Include="Service References\StorageServiceReference\StorageService32.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WeatherServiceReference\WeatherService.wsdl" />
-    <None Include="Service References\WeatherServiceReference\WeatherService.xsd">
+    <None Include="Service References\WeatherServiceReference\WeatherService2.wsdl" />
+    <None Include="Service References\WeatherServiceReference\WeatherService21.wsdl" />
+    <None Include="Service References\WeatherServiceReference\WeatherService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WeatherServiceReference\WeatherService1.wsdl" />
-    <None Include="Service References\WeatherServiceReference\WeatherService1.xsd">
+    <None Include="Service References\WeatherServiceReference\WeatherService31.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WeatherServiceReference\WeatherService2.xsd">
+    <None Include="Service References\WeatherServiceReference\WeatherService32.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\StorageServiceReference\" />
     <WCFMetadataStorage Include="Service References\WeatherServiceReference\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\StorageServiceReference\StorageService.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\StorageServiceReference\configuration91.svcinfo" />
@@ -147,9 +146,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\WeatherServiceReference\WeatherService.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\WeatherServiceReference\configuration91.svcinfo" />
@@ -171,6 +167,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\weather-icon-png-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\StorageServiceReference\StorageService1.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WeatherServiceReference\WeatherService1.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
