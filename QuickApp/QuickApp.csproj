@@ -48,6 +48,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -82,6 +84,16 @@
     </Compile>
     <Compile Include="MainWindowState.cs" />
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="Service References\StorageServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WeatherServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Timers\ATimer.cs" />
     <Compile Include="Timers\MicroTimer.cs" />
     <Page Include="ApplicationWindow.xaml">
@@ -137,6 +149,33 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\StorageServiceReference\QuickApp.StorageServiceReference.CityModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\StorageServiceReference\QuickApp.StorageServiceReference.WeatherItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\StorageServiceReference\StorageService.wsdl" />
+    <None Include="Service References\StorageServiceReference\StorageService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\StorageServiceReference\StorageService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\StorageServiceReference\StorageService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WeatherServiceReference\OpenWeatherMap.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WeatherServiceReference\service.wsdl" />
+    <None Include="Service References\WeatherServiceReference\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WeatherServiceReference\service1.wsdl" />
+    <None Include="Service References\WeatherServiceReference\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +256,40 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Twitter-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\StorageServiceReference\" />
+    <WCFMetadataStorage Include="Service References\WeatherServiceReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\StorageServiceReference\StorageService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\StorageServiceReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\StorageServiceReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\StorageServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WeatherServiceReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WeatherServiceReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WeatherServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

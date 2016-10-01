@@ -39,6 +39,7 @@
       <HintPath>..\..\packages\MaterialDesignThemes.2.1.0.657\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="OpenWeatherMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -109,25 +110,25 @@
     <None Include="Properties\DataSources\OpenWeatherMap.CityModel2.datasource" />
     <None Include="Properties\DataSources\OpenWeatherMap.WeatherItem.datasource" />
     <None Include="Properties\DataSources\OpenWeatherMap.WeatherItem2.datasource" />
-    <None Include="Service References\StorageServiceReference\StorageService1.wsdl" />
-    <None Include="Service References\StorageServiceReference\StorageService3.xsd">
+    <None Include="Service References\StorageServiceReference\StorageService.wsdl" />
+    <None Include="Service References\StorageServiceReference\StorageService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\StorageServiceReference\StorageService31.xsd">
+    <None Include="Service References\StorageServiceReference\StorageService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\StorageServiceReference\StorageService32.xsd">
+    <None Include="Service References\StorageServiceReference\StorageService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WeatherServiceReference\WeatherService2.wsdl" />
-    <None Include="Service References\WeatherServiceReference\WeatherService21.wsdl" />
-    <None Include="Service References\WeatherServiceReference\WeatherService3.xsd">
+    <None Include="Service References\WeatherServiceReference\OpenWeatherMap.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WeatherServiceReference\WeatherService31.xsd">
+    <None Include="Service References\WeatherServiceReference\service.wsdl" />
+    <None Include="Service References\WeatherServiceReference\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WeatherServiceReference\WeatherService32.xsd">
+    <None Include="Service References\WeatherServiceReference\service1.wsdl" />
+    <None Include="Service References\WeatherServiceReference\service1.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -169,10 +170,7 @@
     <None Include="Resources\weather-icon-png-16.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\StorageServiceReference\StorageService1.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\WeatherServiceReference\WeatherService1.disco" />
+    <None Include="Service References\StorageServiceReference\StorageService.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
