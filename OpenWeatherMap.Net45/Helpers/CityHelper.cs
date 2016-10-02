@@ -19,7 +19,7 @@ namespace OpenWeatherMap
         {
             try
             {
-                string filePath = @"F:\Programming\Informer\Informer\OpenWeatherMap.Net45\Models\CityList.json";
+                string filePath = @"C:\inetpub\wwwroot\CityList.json";
                 var cityListModel = SerializationHelper.DeserializeJsonFromFile<CityListModel>(filePath, new CityListModel());
 
                 var cityModels = new List<CityModel>();

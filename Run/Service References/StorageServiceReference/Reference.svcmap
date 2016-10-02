@@ -19,14 +19,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost/StorageService/StorageService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://194.87.237.40:8002/StorageService.svc/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="StorageService3.xsd" MetadataType="Schema" ID="58095a9a-065b-4e90-b9f1-831f0b53a137" SourceId="1" SourceUrl="http://shaiiden/StorageService/StorageService.svc?xsd=xsd0" />
-    <MetadataFile FileName="StorageService1.disco" MetadataType="Disco" ID="78efc9cc-57d6-4129-8351-0e8f9be04ed7" SourceId="1" SourceUrl="http://shaiiden/StorageService/StorageService.svc?disco" />
-    <MetadataFile FileName="StorageService1.wsdl" MetadataType="Wsdl" ID="0356695d-be4b-4226-bc85-2393c65be174" SourceId="1" SourceUrl="http://shaiiden/StorageService/StorageService.svc?wsdl" />
-    <MetadataFile FileName="StorageService31.xsd" MetadataType="Schema" ID="0e43e981-d5dd-4b01-9764-5dbbc7558434" SourceId="1" SourceUrl="http://shaiiden/StorageService/StorageService.svc?xsd=xsd2" />
-    <MetadataFile FileName="StorageService32.xsd" MetadataType="Schema" ID="4eebc5e7-da82-44e7-b0b4-2bf3b7767cec" SourceId="1" SourceUrl="http://shaiiden/StorageService/StorageService.svc?xsd=xsd1" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="c00e8409-b00a-4ebb-bd6a-3ea9cfafeccb" SourceId="1" SourceUrl="http://194.87.237.40:8002/StorageService.svc/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="9ef769f4-a2e5-4121-b528-44761a6c8865" SourceId="1" SourceUrl="http://194.87.237.40:8002/StorageService.svc/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="c54ac775-7f3b-4e34-befa-ba09ef54f823" SourceId="1" SourceUrl="http://194.87.237.40:8002/StorageService.svc/mex" />
+    <MetadataFile FileName="OpenWeatherMap.xsd" MetadataType="Schema" ID="26dd2e70-a204-43ee-843c-7c0573482f42" SourceId="1" SourceUrl="http://194.87.237.40:8002/StorageService.svc/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

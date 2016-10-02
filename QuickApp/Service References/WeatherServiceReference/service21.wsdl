@@ -37,9 +37,9 @@
   </wsdl:binding>
   <wsdl:service name="WeatherService">
     <wsdl:port name="NetTcpBinding_WeatherService" binding="tns:NetTcpBinding_WeatherService">
-      <soap12:address location="net.tcp://localhost:8000/WeatherService.svc" />
+      <soap12:address location="net.tcp://194.87.237.40:8000/WeatherService.svc" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8000/WeatherService.svc</wsa10:Address>
+        <wsa10:Address>net.tcp://194.87.237.40:8000/WeatherService.svc</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>

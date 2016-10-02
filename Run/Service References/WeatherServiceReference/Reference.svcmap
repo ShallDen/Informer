@@ -19,15 +19,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost/WeatherService/WeatherService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="net.tcp://194.87.237.40:8000/WeatherService.svc/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="WeatherService.disco" MetadataType="Disco" ID="c861aa54-0504-47dd-a579-97248b2df81f" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?disco" />
-    <MetadataFile FileName="WeatherService.wsdl" MetadataType="Wsdl" ID="9a3d96a6-c8d9-43ac-a51b-3d79994c257a" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?wsdl" />
-    <MetadataFile FileName="WeatherService.xsd" MetadataType="Schema" ID="d521fec1-3b4a-425c-b5f4-9e50102eaa4d" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?xsd=xsd0" />
-    <MetadataFile FileName="WeatherService1.xsd" MetadataType="Schema" ID="c03dd641-192f-4a6d-8c52-4ca1174be058" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?xsd=xsd1" />
-    <MetadataFile FileName="WeatherService2.xsd" MetadataType="Schema" ID="40b64525-d4cf-4025-8d86-6e84060dc992" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?xsd=xsd2" />
-    <MetadataFile FileName="WeatherService1.wsdl" MetadataType="Wsdl" ID="722e9b26-064f-4581-a6c5-770852d706d0" SourceId="1" SourceUrl="http://shaiiden/WeatherService/WeatherService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="service2.wsdl" MetadataType="Wsdl" ID="66630487-1f1c-4bfb-9dd1-988633335d71" SourceId="1" SourceUrl="net.tcp://194.87.237.40:8000/WeatherService.svc/mex" />
+    <MetadataFile FileName="service21.wsdl" MetadataType="Wsdl" ID="c53be57d-37f2-46cc-be0f-0fad850ef4a7" SourceId="1" SourceUrl="net.tcp://194.87.237.40:8000/WeatherService.svc/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="b16a7a4d-94a4-4052-83bd-e7bdab64aa5d" SourceId="1" SourceUrl="net.tcp://194.87.237.40:8000/WeatherService.svc/mex" />
+    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="fba680b0-e594-4947-996a-bba0f879da11" SourceId="1" SourceUrl="net.tcp://194.87.237.40:8000/WeatherService.svc/mex" />
+    <MetadataFile FileName="OpenWeatherMap1.xsd" MetadataType="Schema" ID="81a5e28c-6605-422b-9ea6-50c8bebaf43c" SourceId="1" SourceUrl="net.tcp://194.87.237.40:8000/WeatherService.svc/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

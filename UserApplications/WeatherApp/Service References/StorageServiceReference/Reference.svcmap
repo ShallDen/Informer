@@ -19,14 +19,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8002/StorageService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://194.87.237.40:8002/StorageService.svc/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="StorageService.xsd" MetadataType="Schema" ID="be86a101-04a3-4e87-b4ca-92e1c164f14a" SourceId="1" SourceUrl="http://shaiiden:8002/StorageService.svc?xsd=xsd0" />
-    <MetadataFile FileName="StorageService1.xsd" MetadataType="Schema" ID="1323435f-976e-42be-8c9e-25137a7c99ab" SourceId="1" SourceUrl="http://shaiiden:8002/StorageService.svc?xsd=xsd1" />
-    <MetadataFile FileName="StorageService.wsdl" MetadataType="Wsdl" ID="c52a2a12-2dbc-40d7-b19f-00a49549a182" SourceId="1" SourceUrl="http://shaiiden:8002/StorageService.svc?wsdl" />
-    <MetadataFile FileName="StorageService.disco" MetadataType="Disco" ID="6fad96e5-6799-4949-b128-8a7d06046fe4" SourceId="1" SourceUrl="http://shaiiden:8002/StorageService.svc?disco" />
-    <MetadataFile FileName="StorageService2.xsd" MetadataType="Schema" ID="a8e5a6d0-8e9b-40fa-9f8f-8db93df48ccc" SourceId="1" SourceUrl="http://shaiiden:8002/StorageService.svc?xsd=xsd2" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="12ec843f-43c2-4294-aac4-e1d9f532f95b" SourceId="1" SourceUrl="http://194.87.237.40:8002/StorageService.svc/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="6638f2ed-0901-4c01-b889-03e44893f1f7" SourceId="1" SourceUrl="http://194.87.237.40:8002/StorageService.svc/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="838b7730-651f-4b55-893a-570954752656" SourceId="1" SourceUrl="http://194.87.237.40:8002/StorageService.svc/mex" />
+    <MetadataFile FileName="OpenWeatherMap.xsd" MetadataType="Schema" ID="e93f0fca-9b65-45bd-bed2-ad777aac1779" SourceId="1" SourceUrl="http://194.87.237.40:8002/StorageService.svc/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

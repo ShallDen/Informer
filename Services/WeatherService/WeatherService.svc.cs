@@ -39,7 +39,6 @@ namespace WeatherService
 
             mWeatherSeekTimer = new Timer();
             mWeatherSeekTimer.Interval = Double.Parse(ConfigurationManager.AppSettings["WeatherUpdateFromWebInterval"], System.Globalization.CultureInfo.InvariantCulture);
-            mWeatherSeekTimer.Interval = 30000;
             mWeatherSeekTimer.Elapsed += mWeatherSeekTimer_Elapsed;
         }
 
@@ -249,7 +248,10 @@ namespace WeatherService
                         callback.OnWeatherReceived(weatherResult);
 
                         var updatedClient = needToUpdateClients.FirstOrDefault(c => c.Value == callback);
-                        needToUpdateClients.Remove(updatedClient);
+                        if (!updatedClient.Equals(default(KeyValuePair<Client, IWeatherServiceCallback>)))
+                        {
+                            needToUpdateClients.Remove(updatedClient);
+                        }
                     };
 
                 // For each connected client, invoke the callback
@@ -259,7 +261,9 @@ namespace WeatherService
             {
                 Console.WriteLine(ex.ToString());
                 var clientForDelete = clientList.FirstOrDefault(c => c.Value == currentCallback);
+                var cityId = clientForDelete.Key.WeatherRequest.CityId;
                 clientList.Remove(clientForDelete.Key);
+                //CheckCityListForCleanUp(cityId);
 
                 clientForDelete = needToUpdateClients.FirstOrDefault(c => c.Value == currentCallback);
                 needToUpdateClients.Remove(clientForDelete);
@@ -268,7 +272,9 @@ namespace WeatherService
             {
                 Console.WriteLine(ex.ToString());
                 var clientForDelete = clientList.FirstOrDefault(c => c.Value == currentCallback);
+                var cityId = clientForDelete.Key.WeatherRequest.CityId;
                 clientList.Remove(clientForDelete.Key);
+               // CheckCityListForCleanUp(cityId);
 
                 clientForDelete = needToUpdateClients.FirstOrDefault(c => c.Value == currentCallback);
                 needToUpdateClients.Remove(clientForDelete);

@@ -19,14 +19,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="net.tcp://localhost:8000/WeatherService.svc/mex" Protocol="mex" SourceId="1" />
+    <MetadataSource Address="net.tcp://194.87.237.40:8000/WeatherService.svc/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="515b15b6-3b17-4ce5-9e90-402bd706d1fe" SourceId="1" SourceUrl="net.tcp://localhost:8000/WeatherService.svc/mex" />
-    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="d6679ba6-49c9-4229-94e7-6a584697d971" SourceId="1" SourceUrl="net.tcp://localhost:8000/WeatherService.svc/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="e2c2d471-a914-40a8-abc1-b63f5622edca" SourceId="1" SourceUrl="net.tcp://localhost:8000/WeatherService.svc/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="674fd2cd-57a0-412e-98b0-dfa6dde3f17b" SourceId="1" SourceUrl="net.tcp://localhost:8000/WeatherService.svc/mex" />
-    <MetadataFile FileName="OpenWeatherMap.xsd" MetadataType="Schema" ID="bf9ed59a-785a-4519-9a0a-646804fee25e" SourceId="1" SourceUrl="net.tcp://localhost:8000/WeatherService.svc/mex" />
+    <MetadataFile FileName="service2.wsdl" MetadataType="Wsdl" ID="6d5b441e-551a-4507-aa2e-af7932211193" SourceId="1" SourceUrl="net.tcp://194.87.237.40:8000/WeatherService.svc/mex" />
+    <MetadataFile FileName="service21.wsdl" MetadataType="Wsdl" ID="262ad48c-f0b4-4867-98a1-167fa2a86b23" SourceId="1" SourceUrl="net.tcp://194.87.237.40:8000/WeatherService.svc/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="88c8f4c2-d05a-4393-abf9-7867636cb7c5" SourceId="1" SourceUrl="net.tcp://194.87.237.40:8000/WeatherService.svc/mex" />
+    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="7f2df957-f2c1-4386-876e-ae7ccf538408" SourceId="1" SourceUrl="net.tcp://194.87.237.40:8000/WeatherService.svc/mex" />
+    <MetadataFile FileName="OpenWeatherMap1.xsd" MetadataType="Schema" ID="61f0d756-6fe6-47f8-a63e-28235bfcdcf2" SourceId="1" SourceUrl="net.tcp://194.87.237.40:8000/WeatherService.svc/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

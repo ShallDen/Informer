@@ -149,31 +149,31 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\StorageServiceReference\OpenWeatherMap.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\StorageServiceReference\QuickApp.StorageServiceReference.CityModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\StorageServiceReference\QuickApp.StorageServiceReference.WeatherItem.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\StorageServiceReference\StorageService.wsdl" />
-    <None Include="Service References\StorageServiceReference\StorageService.xsd">
+    <None Include="Service References\StorageServiceReference\service.wsdl" />
+    <None Include="Service References\StorageServiceReference\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\StorageServiceReference\StorageService1.xsd">
+    <None Include="Service References\StorageServiceReference\service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\StorageServiceReference\StorageService2.xsd">
+    <None Include="Service References\WeatherServiceReference\OpenWeatherMap1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WeatherServiceReference\OpenWeatherMap.xsd">
+    <None Include="Service References\WeatherServiceReference\service2.wsdl" />
+    <None Include="Service References\WeatherServiceReference\service2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\WeatherServiceReference\service.wsdl" />
-    <None Include="Service References\WeatherServiceReference\service.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\WeatherServiceReference\service1.wsdl" />
-    <None Include="Service References\WeatherServiceReference\service1.xsd">
+    <None Include="Service References\WeatherServiceReference\service21.wsdl" />
+    <None Include="Service References\WeatherServiceReference\service21.xsd">
       <SubType>Designer</SubType>
     </None>
     <Resource Include="Resources\Entypo.ttf" />
@@ -263,9 +263,6 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\StorageServiceReference\" />
     <WCFMetadataStorage Include="Service References\WeatherServiceReference\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\StorageServiceReference\StorageService.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\StorageServiceReference\configuration91.svcinfo" />
